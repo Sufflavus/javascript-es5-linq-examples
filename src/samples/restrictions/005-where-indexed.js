@@ -8,6 +8,6 @@
     console.log("Short digits:"); 
 
     shortDigits.forEach(function(d) {
-        console.log("The word " + d + "is shorter than its value."); 
+        console.log("The word " + d + " is shorter than its value."); 
     });
 })();
