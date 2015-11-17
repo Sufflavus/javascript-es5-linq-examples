@@ -1,7 +1,7 @@
 (function() {
     var products = getProductList();  // function getProductList is in the file datacontext.js  
     
-    var result = products.map(function(p){
+    var productInfos = products.map(function(p){
         return { 
             productName: p.ProductName, 
             category: p.Category,
@@ -11,7 +11,8 @@
 
     console.log("Product Info:"); 
     
-    result.forEach(function(item) {
-        console.log(item.productName + " is in the category " + item.category + " and costs " + item.unitPrice + " per unit.");
+    productInfos.forEach(function(productInfo) {
+        console.log(productInfo.productName + " is in the category " + 
+            productInfo.category + " and costs " + productInfo.unitPrice + " per unit.");
     });
 })();

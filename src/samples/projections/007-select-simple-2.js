@@ -3,11 +3,11 @@
 
     console.log("Product Names:");
     
-    var result = products.map(function(p) {
+    var productNames = products.map(function(p) {
         return p.ProductName;
     });
 
-    result.forEach(function(item) {
-        console.log(item);
+    productNames.forEach(function(productName) {
+        console.log(productName);
     });
 })();

@@ -68,7 +68,7 @@ public void Linq1()
 ```
 ```js
 //JavaScript
-function linq1(){
+function linq1() {
     var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
 
     var lowNums = numbers.filter(function(n){
@@ -112,7 +112,7 @@ public void Linq2()
 ```
 ```js
 //JavaScript
-function linq2(){
+function linq2() {
     var products = getProductList(); 
 
     var soldOutProducts = products.filter(function(p) {
@@ -156,7 +156,7 @@ public void Linq3()
 ```
 ```js
 //JavaScript
-function linq3(){
+function linq3() {
     var products = getProductList(); 
 
     var expensiveInStockProducts = products.filter(function(p) {
@@ -203,7 +203,7 @@ public void Linq4()
 ```
 ```js
 //JavaScript
-function linq4(){
+function linq4() {
     var customers = getCustomerList(); 
 
     var waCustomers = customers.filter(function(c) {
@@ -250,7 +250,7 @@ public void Linq5()
 ```
 ```js
 //JavaScript
-function linq5(){
+function linq5() {
     var digits = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]; 
     
     var shortDigits = digits.filter(function(digit, index) {
@@ -275,6 +275,286 @@ function linq5(){
 
 LINQ - Projection Operators
 ---------------------------
+
+### linq6: Select - Simple 1
+```csharp
+//c#
+public void Linq6() 
+{ 
+    int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 }; 
+  
+    var numsPlusOne = 
+        from n in numbers 
+        select n + 1; 
+  
+    Console.WriteLine("Numbers + 1:"); 
+    foreach (var i in numsPlusOne) 
+    { 
+        Console.WriteLine(i); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq6() {
+    var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
+
+    var numsPlusOne = numbers.map(function(n) {
+        return n + 1;
+    });
+
+    console.log("Numbers + 1:"); 
+
+    numsPlusOne.forEach(function(i) {
+        console.log(i);
+    });
+}
+```
+#### Output
+
+    Numbers + 1:
+    6
+    5
+    2
+    4
+    10
+    9
+    7
+    8
+    3
+    1
+
+### linq7: Select - Simple 2
+```csharp
+//c#
+public void Linq7() 
+{ 
+    List<Product> products = GetProductList(); 
+  
+    var productNames = 
+        from p in products 
+        select p.ProductName; 
+  
+    Console.WriteLine("Product Names:"); 
+    foreach (var productName in productNames) 
+    { 
+        Console.WriteLine(productName); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq7() {
+    var products = getProductList(); 
+
+    console.log("Product Names:");
+    
+    var productNames = products.map(function(p) {
+        return p.ProductName;
+    });
+
+    productNames.forEach(function(productName) {
+        console.log(productName);
+    });
+}
+```
+#### Output
+
+    Product Names:
+    Chai
+    Chang
+    Aniseed Syrup
+    Chef Anton's Cajun Seasoning
+    Chef Anton's Gumbo Mix
+    ...
+
+### linq8: Select - Transformation
+```csharp
+//c#
+public void Linq8() 
+{ 
+    int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 }; 
+    string[] strings = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" }; 
+  
+    var textNums = 
+        from n in numbers 
+        select strings[n]; 
+  
+    Console.WriteLine("Number strings:"); 
+    foreach (var s in textNums) 
+    { 
+        Console.WriteLine(s); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq8() {
+    var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
+    var strings = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]; 
+    
+    var textNums = numbers.map(function(n) {
+        return strings[n];
+    });
+
+    console.log("Number strings:");
+
+    textNums.forEach(function(s) {
+        console.log(s);
+    });
+}
+```
+#### Output
+
+    Number strings:
+    five
+    four
+    one
+    three
+    nine
+    eight
+    six
+    seven
+    two
+    zero
+
+### linq9: Select - Anonymous Types 1
+```csharp
+//c#
+public void Linq9() 
+{ 
+    string[] words = { "aPPLE", "BlUeBeRrY", "cHeRry" }; 
+  
+    var upperLowerWords = 
+        from w in words 
+        select new { Upper = w.ToUpper(), Lower = w.ToLower() }; 
+  
+    foreach (var ul in upperLowerWords) 
+    { 
+        Console.WriteLine("Uppercase: {0}, Lowercase: {1}", ul.Upper, ul.Lower); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq9() {
+    var words = ["aPPLE", "BlUeBeRrY", "cHeRry"];
+
+    var upperLowerWords = words.map(function(w) { 
+        return { 
+            upper: w.toUpperCase(), 
+            lower: w.toLowerCase()
+        }; 
+    });
+
+    upperLowerWords.forEach(function(ul) {
+        console.log("Uppercase: " + ul.upper + ", Lowercase: " + ul.lower);
+    });
+}
+```
+#### Output
+
+    Uppercase: APPLE, Lowercase: apple
+    Uppercase: BLUEBERRY, Lowercase: blueberry
+    Uppercase: CHERRY, Lowercase: cherry
+
+### linq10: Select - Anonymous Types 2
+```csharp
+//c#
+public void Linq10() 
+{ 
+    int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 }; 
+    string[] strings = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" }; 
+  
+    var digitOddEvens = 
+        from n in numbers 
+        select new { Digit = strings[n], Even = (n % 2 == 0) }; 
+  
+    foreach (var d in digitOddEvens) 
+    { 
+        Console.WriteLine("The digit {0} is {1}.", d.Digit, d.Even ? "even" : "odd"); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq10() {
+    var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
+    var strings = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]; 
+
+    var digitOddEvens = numbers.map(function(n){
+        return { 
+            digit: strings[n], 
+            even: (n % 2 === 0) 
+        };
+    });
+
+    digitOddEvens.forEach(function(d) {
+        console.log("The digit " + d.digit + " is " + (d.even ? "even" : "odd"));
+    });
+}
+```
+#### Output
+
+    The digit five is odd
+    The digit four is even
+    The digit one is odd
+    The digit three is odd
+    The digit nine is odd
+    The digit eight is even
+    The digit six is even
+    The digit seven is odd
+    The digit two is even
+    The digit zero is even
+
+### linq11: Select - Anonymous Types 3
+```csharp
+//c#
+public void Linq11() 
+{ 
+    List<Product> products = GetProductList(); 
+  
+    var productInfos = 
+        from p in products 
+        select new { p.ProductName, p.Category, Price = p.UnitPrice }; 
+  
+    Console.WriteLine("Product Info:"); 
+    foreach (var productInfo in productInfos) 
+    { 
+        Console.WriteLine("{0} is in the category {1} and costs {2} per unit.", productInfo.ProductName, productInfo.Category, productInfo.Price); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq11() {
+    var products = getProductList();
+    
+    var productInfos = products.map(function(p){
+        return { 
+            productName: p.ProductName, 
+            category: p.Category,
+            unitPrice: p.UnitPrice
+        };
+    });
+
+    console.log("Product Info:"); 
+    
+    productInfos.forEach(function(productInfo) {
+        console.log(productInfo.productName + " is in the category " + 
+            productInfo.category + " and costs " + productInfo.unitPrice + " per unit.");
+    });
+}
+```
+#### Output
+
+    Product Info:
+    Chai is in the category Beverages and costs 18 per unit.
+    Chang is in the category Beverages and costs 19 per unit.
+    Aniseed Syrup is in the category Condiments and costs 10 per unit.
+    ...
+
+### linq12: Select - Indexed
 
 Coming soon..
 
