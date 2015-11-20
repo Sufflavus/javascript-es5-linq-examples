@@ -5,7 +5,7 @@
 
     console.log("All but first 4 numbers:"); 
 
-    allButFirst4Numbers.forEach(function(x) {
-        console.log(x);
+    allButFirst4Numbers.forEach(function(n) {
+        console.log(n);
     });
 })();

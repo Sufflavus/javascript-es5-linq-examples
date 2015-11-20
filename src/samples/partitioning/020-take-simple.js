@@ -5,7 +5,7 @@
 
     console.log("First 3 numbers:"); 
 
-    first3Numbers.forEach(function(x) {
-        console.log(x);
+    first3Numbers.forEach(function(n) {
+        console.log(n);
     });
 })();

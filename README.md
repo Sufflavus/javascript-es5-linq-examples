@@ -17,7 +17,7 @@ You can run samples in your browser by opening [SamplesRunner.html](https://gith
 
 ### Contents
 
-The samples below mirrors the C# LINQ samples layout with the names of the top-level Swift methods matching their corresponding C# examples.
+The samples below mirrors the C# LINQ samples layout with the JS immediately-invoked functions matching their corresponding C# examples.
 
 #### [LINQ - Restriction Operators](https://github.com/Sufflavus/javascript-es5-linq-examples/tree/master/src/samples/restrictions/) / [MSDN C#](http://code.msdn.microsoft.com/LINQ-Restriction-Operators-b15d29ca)
 #### [LINQ - Projection Operators](https://github.com/Sufflavus/javascript-es5-linq-examples/tree/master/src/samples/projections/) / [MSDN C#](http://code.msdn.microsoft.com/LINQ-to-DataSets-09787825)
@@ -983,6 +983,401 @@ function linq19() {
 
 LINQ - Partitioning Operators
 -----------------------------
+
+### linq20: Take - Simple
+```csharp
+//c#
+public void Linq20() 
+{ 
+    int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 }; 
+
+    var first3Numbers = numbers.Take(3); 
+  
+    Console.WriteLine("First 3 numbers:"); 
+  
+    foreach (var n in first3Numbers) 
+    { 
+        Console.WriteLine(n); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq20() {
+    var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
+
+    var first3Numbers = numbers.slice(0, 3);
+
+    console.log("First 3 numbers:"); 
+
+    first3Numbers.forEach(function(n) {
+        console.log(n);
+    });
+}
+```
+#### Output
+
+    First 3 numbers:
+    5
+    4
+    1
+
+### linq21: Take - Nested
+```csharp
+//c#
+public void Linq21()   
+{ 
+    List<Customer> customers = GetCustomerList(); 
+  
+    var first3WAOrders = ( 
+        from c in customers 
+        from o in c.Orders 
+        where c.Region == "WA" 
+        select new { c.CustomerID, o.OrderID, o.OrderDate }) 
+        .Take(3); 
+  
+    Console.WriteLine("First 3 orders in WA:"); 
+    foreach (var order in first3WAOrders) 
+    { 
+        ObjectDumper.Write(order); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq21() {
+    var customers = getCustomerList(); 
+
+    var first3WAOrders = customers.filter(function (customer) {
+        return customer.Region === "WA";
+    }).map(function(customer) {
+        return customer.Orders.map(function(order) {
+                return {
+                    customerId: customer.CustomerId, 
+                    orderId: order.OrderId,
+                    orderDate: order.OrderDate
+                };
+            });
+    }).reduce(function(arr1, arr2) {
+        return arr1.concat(arr2);
+    }, []).slice(0, 3);
+
+    console.log("First 3 orders in WA:"); 
+
+    first3WAOrders.forEach(function(order) {
+        console.log("CustomerID=" + order.customerId + " OrderID=" + order.orderId + " OrderDate=" + order.orderDate);
+    });
+}
+```
+#### Output
+
+    First 3 orders in WA:
+    CustomerID=LAZYK OrderID=10482 OrderDate=1997-03-21T00:00:00.000Z
+    CustomerID=LAZYK OrderID=10545 OrderDate=1997-05-22T00:00:00.000Z
+    CustomerID=TRAIH OrderID=10574 OrderDate=1997-06-19T00:00:00.000Z
+
+
+### linq22: Skip - Simple
+```csharp
+//c#
+public void Linq22() 
+{ 
+    int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 }; 
+  
+    var allButFirst4Numbers = numbers.Skip(4); 
+  
+    Console.WriteLine("All but first 4 numbers:"); 
+    foreach (var n in allButFirst4Numbers) 
+    { 
+        Console.WriteLine(n); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq22() {
+    var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
+
+    var allButFirst4Numbers = numbers.slice(4);
+
+    console.log("All but first 4 numbers:"); 
+
+    allButFirst4Numbers.forEach(function(n) {
+        console.log(n);
+    });
+}
+```
+#### Output
+
+    All but first 4 numbers:
+    9
+    8
+    6
+    7
+    2
+    0
+
+### linq23: Skip - Nested
+```csharp
+//c#
+public void Linq23()   
+{ 
+    List<Customer> customers = GetCustomerList(); 
+  
+    var waOrders = 
+        from c in customers 
+        from o in c.Orders 
+        where c.Region == "WA" 
+        select new { c.CustomerID, o.OrderID, o.OrderDate }; 
+  
+    var allButFirst2Orders = waOrders.Skip(2); 
+  
+    Console.WriteLine("All but first 2 orders in WA:"); 
+    foreach (var order in allButFirst2Orders) 
+    { 
+        ObjectDumper.Write(order); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq23() {
+    var customers = getCustomerList(); 
+
+    var allButFirst2Orders = customers.filter(function (customer) {
+        return customer.Region === "WA";
+    }).map(function(customer) {
+        return customer.Orders.map(function(order) {
+                return {
+                    customerId: customer.CustomerId, 
+                    orderId: order.OrderId,
+                    orderDate: order.OrderDate
+                };
+            });
+    }).reduce(function(arr1, arr2) {
+        return arr1.concat(arr2);
+    }, []).slice(2);
+
+    console.log("All but first 2 orders in WA:"); 
+
+    allButFirst2Orders.forEach(function(order) {
+        console.log("CustomerID=" + order.customerId + " OrderID=" + order.orderId + " OrderDate=" + order.orderDate);
+    });
+}
+```
+#### Output
+
+    All but first 2 orders in WA:
+    CustomerID=TRAIH OrderID=10574 OrderDate=1997-06-19T00:00:00.000Z
+    CustomerID=TRAIH OrderID=10577 OrderDate=1997-06-23T00:00:00.000Z
+    CustomerID=TRAIH OrderID=10822 OrderDate=1998-01-08T00:00:00.000Z
+    CustomerID=WHITC OrderID=10269 OrderDate=1996-07-31T00:00:00.000Z
+    CustomerID=WHITC OrderID=10344 OrderDate=1996-11-01T00:00:00.000Z
+    CustomerID=WHITC OrderID=10469 OrderDate=1997-03-10T00:00:00.000Z
+    CustomerID=WHITC OrderID=10483 OrderDate=1997-03-24T00:00:00.000Z
+    CustomerID=WHITC OrderID=10504 OrderDate=1997-04-11T00:00:00.000Z
+    CustomerID=WHITC OrderID=10596 OrderDate=1997-07-11T00:00:00.000Z
+    CustomerID=WHITC OrderID=10693 OrderDate=1997-10-06T00:00:00.000Z
+    CustomerID=WHITC OrderID=10696 OrderDate=1997-10-08T00:00:00.000Z
+    CustomerID=WHITC OrderID=10723 OrderDate=1997-10-30T00:00:00.000Z
+    CustomerID=WHITC OrderID=10740 OrderDate=1997-11-13T00:00:00.000Z
+    CustomerID=WHITC OrderID=10861 OrderDate=1998-01-30T00:00:00.000Z
+    CustomerID=WHITC OrderID=10904 OrderDate=1998-02-24T00:00:00.000Z
+    CustomerID=WHITC OrderID=11032 OrderDate=1998-04-17T00:00:00.000Z
+    CustomerID=WHITC OrderID=11066 OrderDate=1998-05-01T00:00:00.000Z
+
+### linq24: TakeWhile - Simple
+```csharp
+//c#
+public void Linq24() 
+{ 
+    int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 }; 
+  
+    var firstNumbersLessThan6 = numbers.TakeWhile(n => n < 6); 
+  
+    Console.WriteLine("First numbers less than 6:"); 
+    foreach (var n in firstNumbersLessThan6) 
+    { 
+        Console.WriteLine(n); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq24() {
+    var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
+
+    var firstNumbersLessThan6 = numbers.slice(0, (function(array, condition){
+        var stopIndex = array.length;
+        array.some(function(n, index) {
+            return condition(n, index) ? false : ((stopIndex = index), true);
+        });
+        return stopIndex;
+    })(numbers, function(n){
+        return n < 6;
+    }));
+
+    console.log("First numbers less than 6:"); 
+
+    firstNumbersLessThan6.forEach(function(n) {
+        console.log(n);
+    });
+}
+```
+#### Output
+
+    First numbers less than 6:
+    5
+    4
+    1
+    3
+
+### linq25: TakeWhile - Indexed
+```csharp
+//c#
+public void Linq25() 
+{ 
+    int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 }; 
+  
+    var firstSmallNumbers = numbers.TakeWhile((n, index) => n >= index); 
+  
+    Console.WriteLine("First numbers not less than their position:"); 
+    foreach (var n in firstSmallNumbers) 
+    { 
+        Console.WriteLine(n); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq25() {
+    var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
+
+    var firstSmallNumbers = numbers.slice(0, (function(array, condition){
+        var stopIndex = array.length;
+        array.some(function(n, index) {
+            return condition(n, index) ? false : ((stopIndex = index), true);
+        });
+        return stopIndex;
+    })(numbers, function(n, index){
+        return n >= index;
+    }));
+
+    console.log("First numbers not less than their position:"); 
+
+    firstSmallNumbers.forEach(function(n) {
+        console.log(n);
+    });
+}
+```
+#### Output
+
+    First numbers not less than their position:
+    5
+    4
+
+### linq26: SkipWhile - Simple
+```csharp
+//c#
+public void Linq26() 
+{ 
+    int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 }; 
+  
+    var allButFirst3Numbers = numbers.SkipWhile(n => n % 3 != 0); 
+  
+    Console.WriteLine("All elements starting from first element divisible by 3:"); 
+    foreach (var n in allButFirst3Numbers) 
+    { 
+        Console.WriteLine(n); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq26() {
+    var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
+
+    var allButFirst3Numbers = numbers.slice((function(array, condition){
+        var stopIndex = array.length;
+        array.some(function(n, index) {
+            return condition(n, index) ? false : ((stopIndex = index), true);
+        });
+        return stopIndex;
+    })(numbers, function(n){
+        return n % 3 != 0;
+    }));
+
+    console.log("All elements starting from first element divisible by 3:"); 
+
+    allButFirst3Numbers.forEach(function(n) {
+        console.log(n);
+    });
+}
+```
+#### Output
+
+    All elements starting from first element divisible by 3:
+    3
+    9
+    8
+    6
+    7
+    2
+    0
+
+### linq27: SkipWhile - Indexed
+```csharp
+//c#
+public void Linq27() 
+{ 
+    int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 }; 
+  
+    var laterNumbers = numbers.SkipWhile((n, index) => n >= index); 
+  
+    Console.WriteLine("All elements starting from first element less than its position:"); 
+    foreach (var n in laterNumbers) 
+    { 
+        Console.WriteLine(n); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq27() {
+    var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
+
+    var laterNumbers = numbers.slice((function(array, condition){
+        var stopIndex = array.length;
+        array.some(function(n, index) {
+            return condition(n, index) ? false : ((stopIndex = index), true);
+        });
+        return stopIndex;
+    })(numbers, function(n, index){
+        return n >= index;
+    }));
+
+    console.log("All elements starting from first element less than its position:"); 
+
+    laterNumbers.forEach(function(n) {
+        console.log(n);
+    });
+}
+```
+#### Output
+
+    All elements starting from first element less than its position:
+    1
+    3
+    9
+    8
+    6
+    7
+    2
+    0
+
+
+LINQ - Ordering Operators
+-------------------------
 
 Coming soon..
 
