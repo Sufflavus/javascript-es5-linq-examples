@@ -1379,6 +1379,571 @@ function linq27() {
 LINQ - Ordering Operators
 -------------------------
 
+### linq28: OrderBy - Simple 1
+```csharp
+//c#
+public void Linq28() 
+{ 
+    string[] words = { "cherry", "apple", "blueberry" }; 
+  
+    var sortedWords = 
+        from w in words 
+        orderby w 
+        select w; 
+  
+    Console.WriteLine("The sorted list of words:"); 
+    foreach (var w in sortedWords) 
+    { 
+        Console.WriteLine(w); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq28() {
+    var words = ["cherry", "apple", "blueberry"]; 
+
+    var sortedWords = words.slice().sort();
+
+    console.log("The sorted list of words:"); 
+
+    sortedWords.forEach(function(w) {
+        console.log(w);
+    });
+}
+```
+#### Output
+
+    The sorted list of words:
+    apple
+    blueberry
+    cherry
+
+### linq29: OrderBy - Simple 2
+```csharp
+//c#
+public void Linq29() 
+{ 
+    string[] words = { "cherry", "apple", "blueberry" }; 
+  
+    var sortedWords = 
+        from w in words 
+        orderby w.Length 
+        select w; 
+  
+    Console.WriteLine("The sorted list of words (by length):"); 
+    foreach (var w in sortedWords) 
+    { 
+        Console.WriteLine(w); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq29() {
+    var words = ["cherry", "apple", "blueberry"]; 
+
+    var sortedWords = words.slice().sort(function(w1, w2) {
+        return w1.length - w2.length;
+    });
+
+    console.log("The sorted list of words (by length):"); 
+
+    sortedWords.forEach(function(w) {
+        console.log(w);
+    });
+}
+```
+#### Output
+
+    The sorted list of words (by length):
+    apple
+    cherry
+    blueberry
+
+### linq30: OrderBy - Simple 3
+```csharp
+//c#
+public void Linq30() 
+{ 
+    List<Product> products = GetProductList(); 
+  
+    var sortedProducts = 
+        from p in products 
+        orderby p.ProductName 
+        select p; 
+  
+    ObjectDumper.Write(sortedProducts); 
+}
+```
+```js
+//JavaScript
+function linq30() {
+    var products = getProductList(); 
+
+    var sortedProducts = products.slice().sort(function(p1, p2) {
+        if (p1.ProductName < p2.ProductName) {
+            return -1;
+        }
+        if (p1.ProductName > p2.ProductName) {
+            return 1;
+        }
+        return 0;
+    });
+
+    sortedProducts.forEach(function(product) {
+        console.log("ProductID=" + product.ProductID + " ProductName=" + product.ProductName + " Category=" + 
+            product.Category + " UnitPrice=" + product.UnitPrice + " UnitsInStock=" + product.UnitsInStock);
+    });
+}
+```
+#### Output
+
+    ProductID=17 ProductName=Alice Mutton Category=Meat/Poultry UnitPrice=39 UnitsInStock=0
+    ProductID=3 ProductName=Aniseed Syrup Category=Condiments UnitPrice=10 UnitsInStock=13
+    ProductID=40 ProductName=Boston Crab Meat Category=Seafood UnitPrice=18.4 UnitsInStock=123
+    ProductID=60 ProductName=Camembert Pierrot Category=Dairy Products UnitPrice=34 UnitsInStock=19
+    ProductID=18 ProductName=Carnarvon Tigers Category=Seafood UnitPrice=62.5 UnitsInStock=42
+    ...
+
+### linq31: OrderBy - Comparer
+```csharp
+//c#
+public void Linq31() 
+{ 
+    string[] words = { "aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry" }; 
+  
+    var sortedWords = words.OrderBy(a => a, new CaseInsensitiveComparer()); 
+  
+    ObjectDumper.Write(sortedWords); 
+} 
+```
+```js
+//JavaScript
+function linq31() {
+    var words = ["aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry"]; 
+
+    var sortedWords = words.slice().sort(caseInsensitiveComparer);
+
+    sortedWords.forEach(function(w) {
+        console.log(w);
+    });
+
+    function caseInsensitiveComparer(x, y) {
+        if (x.toUpperCase() < y.toUpperCase()) {
+            return -1;
+        }
+        if (x.toUpperCase() > y.toUpperCase()) {
+            return 1;
+        }
+        return 0;
+    }
+}
+```
+#### Output
+
+    AbAcUs
+    aPPLE
+    BlUeBeRrY
+    bRaNcH
+    cHeRry
+    ClOvEr
+
+### linq32: OrderByDescending - Simple 1
+```csharp
+//c#
+public void Linq32() 
+{ 
+    double[] doubles = { 1.7, 2.3, 1.9, 4.1, 2.9 }; 
+  
+    var sortedDoubles = 
+        from d in doubles 
+        orderby d descending 
+        select d; 
+  
+    Console.WriteLine("The doubles from highest to lowest:"); 
+    foreach (var d in sortedDoubles) 
+    { 
+        Console.WriteLine(d); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq32() {
+    var doubles = [1.7, 2.3, 1.9, 4.1, 2.9]; 
+
+    var sortedDoubles = doubles.slice().sort(function(a, b) {
+        return b - a;
+    });
+
+    console.log("The doubles from highest to lowest:"); 
+    
+    sortedDoubles.forEach(function(d) {
+        console.log(d);
+    });
+}
+```
+#### Output
+
+    The doubles from highest to lowest:
+    4.1
+    2.9
+    2.3
+    1.9
+    1.7
+
+### linq33: OrderByDescending - Simple 2
+```csharp
+//c#
+public void Linq33() 
+{ 
+    List<Product> products = GetProductList(); 
+  
+    var sortedProducts = 
+        from p in products 
+        orderby p.UnitsInStock descending 
+        select p; 
+  
+    ObjectDumper.Write(sortedProducts); 
+}
+```
+```js
+//JavaScript
+function linq33() {
+    var products = getProductList(); 
+
+    var sortedProducts = products.slice().sort(function(p1, p2) {
+        return p2.UnitsInStock - p1.UnitsInStock;
+    });
+
+    sortedProducts.forEach(function(product) {
+        console.log("ProductID=" + product.ProductID + " ProductName=" + product.ProductName + " Category=" + 
+            product.Category + " UnitPrice=" + product.UnitPrice + " UnitsInStock=" + product.UnitsInStock);
+    });
+}
+```
+#### Output
+
+    ProductID=75 ProductName=Rhönbräu Klosterbier Category=Beverages UnitPrice=7.75 UnitsInStock=125
+    ProductID=40 ProductName=Boston Crab Meat Category=Seafood UnitPrice=18.4 UnitsInStock=123
+    ProductID=6 ProductName=Grandma's Boysenberry Spread Category=Condiments UnitPrice=25 UnitsInStock=120
+    ProductID=55 ProductName=Pâté chinois Category=Meat/Poultry UnitPrice=24 UnitsInStock=115
+    ProductID=61 ProductName=Sirop d'érable Category=Condiments UnitPrice=28.5 UnitsInStock=113
+    ...
+
+### linq34: OrderByDescending - Comparer
+```csharp
+//c#
+public void Linq34() 
+{ 
+    string[] words = { "aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry" }; 
+  
+    var sortedWords = words.OrderByDescending(a => a, new CaseInsensitiveComparer()); 
+  
+    ObjectDumper.Write(sortedWords); 
+} 
+```
+```js
+//JavaScript
+function linq34() {
+    var words = ["aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry"]; 
+
+    var sortedWords = words.slice().sort(caseInsensitiveComparer);
+
+    sortedWords.forEach(function(w) {
+        console.log(w);
+    });
+
+    function caseInsensitiveComparer(x, y) {
+        if (x.toUpperCase() < y.toUpperCase()) {
+            return 1;
+        }
+        if (x.toUpperCase() > y.toUpperCase()) {
+            return -1;
+        }
+        return 0;
+    }
+}
+```
+#### Output
+
+    ClOvEr
+    cHeRry
+    bRaNcH
+    BlUeBeRrY
+    aPPLE
+    AbAcUs
+
+### linq35: ThenBy - Simple
+```csharp
+//c#
+public void Linq35() 
+{ 
+    string[] digits = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" }; 
+  
+    var sortedDigits = 
+        from d in digits 
+        orderby d.Length, d 
+        select d; 
+  
+    Console.WriteLine("Sorted digits:"); 
+    foreach (var d in sortedDigits) 
+    { 
+        Console.WriteLine(d); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq35() {
+    var digits = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]; 
+
+    var sortedDigits = digits.slice().sort(function(d1, d2) {
+        if (d1.length > d2.length) {
+            return 1;
+        } 
+        if (d1.length < d2.length) { 
+            return -1;
+        }
+
+        if (d1 > d2) { 
+            return 1;
+        } 
+        if (d1 < d2) {
+            return -1
+        } 
+        return 0;
+    });
+
+    console.log("Sorted digits:"); 
+    
+    sortedDigits.forEach(function(d) {
+        console.log(d);
+    });
+}
+```
+#### Output
+
+    Sorted digits:
+    one
+    six
+    two
+    five
+    four
+    nine
+    zero
+    eight
+    seven
+    three
+
+### linq36: ThenBy - Comparer
+```csharp
+//c#
+public void Linq36() 
+{ 
+    string[] words = { "aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry" }; 
+  
+    var sortedWords = 
+        words.OrderBy(a => a.Length) 
+             .ThenBy(a => a, new CaseInsensitiveComparer()); 
+  
+    ObjectDumper.Write(sortedWords); 
+} 
+```
+```js
+//JavaScript
+function linq36(){
+    var words = ["aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry"]; 
+
+    var sortedWords = words.slice().sort(function(a1, a2) {
+        if (a1.length > a2.length) {
+            return 1;
+        } 
+        if (a1.length < a2.length) { 
+            return -1;
+        }
+
+        return caseInsensitiveComparer(a1, a2);
+    });
+
+    sortedWords.forEach(function(w) {
+        console.log(w);
+    });
+
+    function caseInsensitiveComparer(x, y) {
+        if (x.toUpperCase() < y.toUpperCase()) {
+            return -1;
+        }
+        if (x.toUpperCase() > y.toUpperCase()) {
+            return 1;
+        }
+        return 0;
+    }
+}
+```
+#### Output
+
+    aPPLE
+    AbAcUs
+    bRaNcH
+    cHeRry
+    ClOvEr
+    BlUeBeRrY
+
+### linq37: ThenByDescending - Simple
+```csharp
+//c#
+public void Linq37() 
+{ 
+    List<Product> products = GetProductList(); 
+  
+    var sortedProducts = 
+        from p in products 
+        orderby p.Category, p.UnitPrice descending 
+        select p; 
+  
+    ObjectDumper.Write(sortedProducts); 
+}
+```
+```js
+//JavaScript
+function linq37() {
+    var products = getProductList(); 
+
+    var sortedProducts = products.slice().sort(function(p1, p2) {
+        if (p1.Category > p2.Category) {
+            return 1;
+        } 
+        if (p1.Category < p2.Category) { 
+            return -1;
+        }
+        
+        return p2.UnitPrice - p1.UnitPrice;
+    });
+
+    sortedProducts.forEach(function(product) {
+        console.log("ProductID=" + product.ProductID + " ProductName=" + product.ProductName + " Category=" + 
+            product.Category + " UnitPrice=" + product.UnitPrice + " UnitsInStock=" + product.UnitsInStock);
+    });
+}
+```
+#### Output
+
+    ProductID=38 ProductName=Côte de Blaye Category=Beverages UnitPrice=263.5 UnitsInStock=17
+    ProductID=43 ProductName=Ipoh Coffee Category=Beverages UnitPrice=46 UnitsInStock=17
+    ProductID=2 ProductName=Chang Category=Beverages UnitPrice=19 UnitsInStock=17
+    ProductID=39 ProductName=Chartreuse verte Category=Beverages UnitPrice=18 UnitsInStock=69
+    ProductID=76 ProductName=Lakkalikööri Category=Beverages UnitPrice=18 UnitsInStock=57
+    ProductID=1 ProductName=Chai Category=Beverages UnitPrice=18 UnitsInStock=39
+    ProductID=35 ProductName=Steeleye Stout Category=Beverages UnitPrice=18 UnitsInStock=20
+    ProductID=70 ProductName=Outback Lager Category=Beverages UnitPrice=15 UnitsInStock=15
+    ProductID=67 ProductName=Laughing Lumberjack Lager Category=Beverages UnitPrice=14 UnitsInStock=52
+    ProductID=34 ProductName=Sasquatch Ale Category=Beverages UnitPrice=14 UnitsInStock=111
+    ...
+
+### linq38: ThenByDescending - Comparer
+```csharp
+//c#
+public void Linq38() 
+{ 
+    string[] words = { "aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry" }; 
+  
+    var sortedWords = 
+        words.OrderBy(a => a.Length) 
+             .ThenByDescending(a => a, new CaseInsensitiveComparer()); 
+  
+    ObjectDumper.Write(sortedWords); 
+} 
+```
+```js
+//JavaScript
+function linq38() {
+    var words = ["aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry"]; 
+
+    var sortedWords = words.slice().sort(function(a1, a2) {
+        if (a1.length > a2.length) {
+            return 1;
+        } 
+        if (a1.length < a2.length) { 
+            return -1;
+        }
+
+        return caseInsensitiveComparer(a1, a2);
+    });
+
+    sortedWords.forEach(function(w) {
+        console.log(w);
+    });
+
+    function caseInsensitiveComparer(x, y) {
+        if (x.toUpperCase() < y.toUpperCase()) {
+            return 1;
+        }
+        if (x.toUpperCase() > y.toUpperCase()) {
+            return -1;
+        }
+        return 0;
+    }
+}
+```
+#### Output
+
+    aPPLE
+    ClOvEr
+    cHeRry
+    bRaNcH
+    AbAcUs
+    BlUeBeRrY
+
+### linq39: Reverse
+```csharp
+//c#
+public void Linq39() 
+{ 
+    string[] digits = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" }; 
+  
+    var reversedIDigits = ( 
+        from d in digits 
+        where d[1] == 'i' 
+        select d) 
+        .Reverse(); 
+  
+    Console.WriteLine("A backwards list of the digits with a second character of 'i':"); 
+    foreach (var d in reversedIDigits) 
+    { 
+        Console.WriteLine(d); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq39() {
+    var digits = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]; 
+
+    var reversedIDigits = digits.filter(function(d) {
+        return d[1] === "i";
+    }).reverse();
+
+    console.log("A backwards list of the digits with a second character of 'i':");
+
+    reversedIDigits.forEach(function(d) {
+        console.log(d);
+    });
+}
+```
+#### Output
+
+    A backwards list of the digits with a second character of 'i':
+    nine
+    eight
+    six
+    five
+
+
+LINQ - Grouping Operators
+-------------------------
+
 Coming soon..
 
 
