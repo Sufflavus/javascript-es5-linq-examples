@@ -1,20 +1,20 @@
 (function() {
     var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
 
-    var numberGroups = numbers.reduce(function(array, item) {
-        var key = item % 5;
+    var numberGroups = numbers.reduce(function(array, n) {
+        var key = n % 5;
 
-        var hasKey = array.some(function(n) {
-            return n.key !== key ? false : ((n.values.push(item)), true);
+        var hasKey = array.some(function(item) {
+            return item.key !== key ? false : ((item.values.push(n)), true);
         });
 
         if(!hasKey){
-            array.push({key: key, values: [item]});
+            array.push({key: key, values: [n]});
         }
 
         return array;
     }, []).map(function(g, index) {
-       return {remainder: g.key, numbers: g.values };
+       return { remainder: g.key, numbers: g.values };
     });
 
     numberGroups.forEach(function(g) {
