@@ -1944,6 +1944,454 @@ function linq39() {
 LINQ - Grouping Operators
 -------------------------
 
+### linq40: GroupBy - Simple 1
+```csharp
+//c#
+public void Linq40() 
+{ 
+    int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 }; 
+  
+    var numberGroups = 
+        from n in numbers 
+        group n by n % 5 into g 
+        select new { Remainder = g.Key, Numbers = g }; 
+  
+    foreach (var g in numberGroups) 
+    { 
+        Console.WriteLine("Numbers with a remainder of {0} when divided by 5:", g.Remainder); 
+        foreach (var n in g.Numbers) 
+        { 
+            Console.WriteLine(n); 
+        } 
+    } 
+}
+```
+```js
+//JavaScript
+function linq40() {
+    var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
+
+    var numberGroups = numbers.reduce(function(array, n) {
+        var key = n % 5;
+
+        var hasKey = array.some(function(item) {
+            return item.key === key ? ((item.values.push(n)), true) : false;
+        });
+
+        if(!hasKey){
+            array.push({key: key, values: [n]});
+        }
+
+        return array;
+    }, []).map(function(g, index) {
+        return { remainder: g.key, numbers: g.values };
+    });
+
+    numberGroups.forEach(function(g) {
+        console.log("Numbers with a remainder of " + g.remainder + " when divided by 5:");
+        g.numbers.forEach(function(n) {
+            console.log(n);
+        })
+    });
+}
+```
+#### Output
+
+    Numbers with a remainder of 0 when divided by 5:
+    5
+    0
+    Numbers with a remainder of 4 when divided by 5:
+    4
+    9
+    Numbers with a remainder of 1 when divided by 5:
+    1
+    6
+    Numbers with a remainder of 3 when divided by 5:
+    3
+    8
+    Numbers with a remainder of 2 when divided by 5:
+    7
+    2
+
+### linq41: GroupBy - Simple 2
+```csharp
+//c#
+public void Linq41() 
+{ 
+    string[] words = { "blueberry", "chimpanzee", "abacus", "banana", "apple", "cheese" }; 
+  
+    var wordGroups = 
+        from w in words 
+        group w by w[0] into g 
+        select new { FirstLetter = g.Key, Words = g }; 
+  
+    foreach (var g in wordGroups) 
+    { 
+        Console.WriteLine("Words that start with the letter '{0}':", g.FirstLetter); 
+        foreach (var w in g.Words) 
+        { 
+            Console.WriteLine(w); 
+        } 
+    } 
+}
+```
+```js
+//JavaScript
+function linq41() {
+    var words = ["blueberry", "chimpanzee", "abacus", "banana", "apple", "cheese"]; 
+
+    var wordGroups = words.reduce(function(array, w) {
+        var key = w[0];
+
+        var hasKey = array.some(function(item) {
+            return item.key === key ? ((item.values.push(w)), true) : false;
+        });
+
+        if(!hasKey){
+            array.push({key: key, values: [w]});
+        }
+
+        return array;
+    }, []).map(function(g, index) {
+        return { firstLetter : g.key, words: g.values };
+    });
+
+    wordGroups.forEach(function(g) {
+        console.log("Words that start with the letter '" + g.firstLetter + "':");
+        g.words.forEach(function(w) {
+            console.log(w);
+        })
+    });
+}
+```
+#### Output
+
+    Words that start with the letter 'b':
+    blueberry
+    banana
+    Words that start with the letter 'c':
+    chimpanzee
+    cheese
+    Words that start with the letter 'a':
+    abacus
+    apple
+
+### linq42: GroupBy - Simple 3
+```csharp
+//c#
+public void Linq42() 
+{ 
+    List<Product> products = GetProductList(); 
+  
+    var orderGroups = 
+        from p in products 
+        group p by p.Category into g 
+        select new { Category = g.Key, Products = g }; 
+  
+    ObjectDumper.Write(orderGroups, 1); 
+} 
+```
+```js
+//JavaScript
+function linq42() {
+    var products = getProductList();
+
+    var orderGroups = products.reduce(function(array, p) {
+        var key = p.Category;
+
+        var hasKey = array.some(function(item) {
+            return item.key === key ? ((item.values.push(p)), true) : false;
+        });
+
+        if(!hasKey){
+            array.push({key: key, values: [p]});
+        }
+
+        return array;
+    }, []).map(function(g, index) {
+        return { category: g.key, products: g.values };
+    });
+
+    orderGroups.forEach(function(g) {
+        console.log("Category=" + g.category + " Products=...");
+        g.products.forEach(function(p) {
+            console.log("Products: ProductID=" + p.ProductID + " ProductName=" + p.ProductName + 
+                " Category=" + p.Category + " UnitPrice=" + p.UnitPrice + " UnitsInStock=" + p.UnitsInStock);
+        })
+    });
+}
+```
+#### Output
+
+    Category=Beverages Products=...
+    Products: ProductID=1 ProductName=Chai Category=Beverages UnitPrice=18 UnitsInStock=39
+    Products: ProductID=2 ProductName=Chang Category=Beverages UnitPrice=19 UnitsInStock=17
+    Products: ProductID=24 ProductName=Guaraná Fantástica Category=Beverages UnitPrice=4.5 UnitsInStock=20
+    Products: ProductID=34 ProductName=Sasquatch Ale Category=Beverages UnitPrice=14 UnitsInStock=111
+    Products: ProductID=35 ProductName=Steeleye Stout Category=Beverages UnitPrice=18 UnitsInStock=20
+    Products: ProductID=38 ProductName=Côte de Blaye Category=Beverages UnitPrice=263.5 UnitsInStock=17
+    Products: ProductID=39 ProductName=Chartreuse verte Category=Beverages UnitPrice=18 UnitsInStock=69
+    Products: ProductID=43 ProductName=Ipoh Coffee Category=Beverages UnitPrice=46 UnitsInStock=17
+    Products: ProductID=67 ProductName=Laughing Lumberjack Lager Category=Beverages UnitPrice=14 UnitsInStock=52
+    Products: ProductID=70 ProductName=Outback Lager Category=Beverages UnitPrice=15 UnitsInStock=15
+    Products: ProductID=75 ProductName=Rhönbräu Klosterbier Category=Beverages UnitPrice=7.75 UnitsInStock=125
+    Products: ProductID=76 ProductName=Lakkalikööri Category=Beverages UnitPrice=18 UnitsInStock=57
+    Category=Condiments Products=...
+    Products: ProductID=3 ProductName=Aniseed Syrup Category=Condiments UnitPrice=10 UnitsInStock=13
+    Products: ProductID=4 ProductName=Chef Anton's Cajun Seasoning Category=Condiments UnitPrice=22 UnitsInStock=53
+    ...
+
+### linq43: GroupBy - Nested
+```csharp
+//c#
+public void Linq43() 
+{ 
+    List<Customer> customers = GetCustomerList(); 
+  
+    var customerOrderGroups = 
+        from c in customers 
+        select 
+            new 
+            { 
+                c.CompanyName, 
+                YearGroups = 
+                    from o in c.Orders 
+                    group o by o.OrderDate.Year into yg 
+                    select 
+                        new 
+                        { 
+                            Year = yg.Key, 
+                            MonthGroups = 
+                                from o in yg 
+                                group o by o.OrderDate.Month into mg 
+                                select new { Month = mg.Key, Orders = mg } 
+                        } 
+            }; 
+  
+    ObjectDumper.Write(customerOrderGroups, 3); 
+} 
+```
+```js
+//JavaScript
+function linq43() {
+    var customers = getCustomerList();
+
+    var customerOrderGroups = customers.map(function(c) {
+        return { 
+            companyName: c.CompanyName, 
+            yearGroups: c.Orders.reduce(function(array, o) {
+                var key = new Date(o.OrderDate).getFullYear();
+
+                var hasKey = array.some(function(item) {
+                    return item.key === key ? ((item.values.push(o)), true) : false;
+                });
+
+                if(!hasKey){
+                    array.push({key: key, values: [o]});
+                }
+
+                return array;
+            }, []).map(function(g) {
+                return { 
+                    year: g.key, 
+                    monthGroups: g.values.reduce(function(array, o) {
+                        var key = new Date(o.OrderDate).getMonth() + 1;
+
+                        var hasKey = array.some(function(item) {
+                            return item.key === key ? ((item.values.push(o)), true) : false;
+                        });
+
+                        if(!hasKey){
+                            array.push({key: key, values: [o]});
+                        }
+
+                        return array;
+                    }, []).map(function(g) {
+                        return { month: g.key, orders: g.values };
+                    })
+                };
+            })
+        };
+    });
+
+    customerOrderGroups.forEach(function(c) {
+        console.log("CompanyName=" + c.companyName + " YearGroups=...");
+
+        c.yearGroups.forEach(function(y) {
+            console.log("YearGroups: Year=" + y.year + " MonthGroups=...");
+
+            y.monthGroups.forEach(function(m) {
+                console.log("MonthGroups: Month=" + m.month + " Orders=...");
+
+                m.orders.forEach(function(o) {
+                    console.log("Orders: OrderID=" + o.OrderId + " OrderDate=" + o.OrderDate + " Total=" + o.Total);
+                });
+            });
+        });
+    });
+}
+```
+#### Output
+
+    CompanyName=Alfreds Futterkiste YearGroups=...
+    YearGroups: Year=1997 MonthGroups=...
+    MonthGroups: Month=8 Orders=...
+    Orders: OrderID=10643 OrderDate=1997-08-25T00:00:00.000Z Total=814.50
+    MonthGroups: Month=10 Orders=...
+    Orders: OrderID=10692 OrderDate=1997-10-03T00:00:00.000Z Total=878.00
+    Orders: OrderID=10702 OrderDate=1997-10-13T00:00:00.000Z Total=330.00
+    YearGroups: Year=1998 MonthGroups=...
+    MonthGroups: Month=1 Orders=...
+    Orders: OrderID=10835 OrderDate=1998-01-15T00:00:00.000Z Total=845.80
+    MonthGroups: Month=3 Orders=...
+    Orders: OrderID=10952 OrderDate=1998-03-16T00:00:00.000Z Total=471.20
+    MonthGroups: Month=4 Orders=...
+    Orders: OrderID=11011 OrderDate=1998-04-09T00:00:00.000Z Total=933.50
+    ...
+
+### linq44: GroupBy - Comparer
+```csharp
+//c#
+public void Linq44() 
+{ 
+    string[] anagrams = { "from   ", " salt", " earn ", "  last   ", " near ", " form  " }; 
+  
+    var orderGroups = anagrams.GroupBy(w => w.Trim(), new AnagramEqualityComparer()); 
+  
+    ObjectDumper.Write(orderGroups, 1); 
+} 
+```
+```js
+//JavaScript
+function linq44() {
+    var anagrams = ["from   ", " salt", " earn ", "  last   ", " near ", " form  "];
+
+    var anagramGroups = anagrams.reduce(function(array, w) {
+        var key = w.replace(/^\s+|\s+$/g, "");
+
+        var hasKey = array.some(function(item) {
+            return anagramEqualityComparer(item.key, key) ? ((item.values.push(w)), true) : false;
+        });
+
+        if(!hasKey){
+            array.push({key: key, values: [w]});
+        }
+
+        return array;
+    }, []).map(function(g) {
+       return { word: g.key, anagrams: g.values };
+    });
+
+    anagramGroups.forEach(function(g) {
+        console.log("...");
+
+        g.anagrams.forEach(function(a) {
+            console.log("'" + a + "'");
+        });
+    });
+
+    function anagramEqualityComparer(x, y) {
+        return getCanonicalString(x) === getCanonicalString(y);
+
+        function getCanonicalString(word) {
+            var wordChars = word.split(""); 
+            wordChars.sort(); 
+            return wordChars.join(""); 
+        }
+    }
+}
+```
+#### Output
+
+    ...
+    'from   '
+    ' form  '
+    ...
+    ' salt'
+    '  last   '
+    ...
+    ' earn '
+    ' near '
+
+### linq45: GroupBy - Comparer, Mapped    
+```csharp
+//c#
+public void Linq45() 
+{ 
+    string[] anagrams = { "from   ", " salt", " earn ", "  last   ", " near ", " form  " }; 
+  
+    var orderGroups = anagrams.GroupBy( 
+                w => w.Trim(), 
+                a => a.ToUpper(), 
+                new AnagramEqualityComparer() 
+                ); 
+  
+    ObjectDumper.Write(orderGroups, 1); 
+} 
+```
+```js
+//JavaScript
+function linq45() {
+    var anagrams = ["from   ", " salt", " earn ", "  last   ", " near ", " form  "];
+
+    var anagramGroups = anagrams.reduce(function(array, w) {
+        var key = w.replace(/^\s+|\s+$/g, "");
+
+        var hasKey = array.some(function(item) {
+            return anagramEqualityComparer(item.key, key) ? ((item.values.push(w)), true) : false;
+        });
+
+        if(!hasKey){
+            array.push({key: key, values: [w]});
+        }
+
+        return array;
+    }, []).map(function(g) {
+        return { word: g.key, anagrams: g.values };
+    }).map(function(g) {
+        return { 
+            word: g.word.toUpperCase(), 
+            anagrams: g.anagrams.map(function(a) { 
+                return a.toUpperCase(); 
+            }) 
+        };
+    });
+
+    anagramGroups.forEach(function(g) {
+        console.log("...");
+
+        g.anagrams.forEach(function(a) {
+            console.log("'" + a + "'");
+        });
+    });
+
+    function anagramEqualityComparer(x, y) {
+        return getCanonicalString(x) === getCanonicalString(y);
+
+        function getCanonicalString(word) {
+            var wordChars = word.split(""); 
+            wordChars.sort(); 
+            return wordChars.join(""); 
+        }
+    }
+}
+```
+#### Output
+
+    ...
+    'FROM   '
+    ' FORM  '
+    ...
+    ' SALT'
+    '  LAST   '
+    ...
+    ' EARN '
+    ' NEAR '
+
+
+LINQ - Set Operators
+--------------------
+
 Coming soon..
 
 

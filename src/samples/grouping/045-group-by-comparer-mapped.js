@@ -14,7 +14,14 @@
 
         return array;
     }, []).map(function(g) {
-       return { word: g.key, anagrams: g.values };
+        return { word: g.key, anagrams: g.values };
+    }).map(function(g) {
+        return { 
+            word: g.word.toUpperCase(), 
+            anagrams: g.anagrams.map(function(a) { 
+                return a.toUpperCase(); 
+            }) 
+        };
     });
 
     anagramGroups.forEach(function(g) {

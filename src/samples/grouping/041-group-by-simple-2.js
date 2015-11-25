@@ -5,7 +5,7 @@
         var key = w[0];
 
         var hasKey = array.some(function(item) {
-            return item.key !== key ? false : ((item.values.push(w)), true);
+            return item.key === key ? ((item.values.push(w)), true) : false;
         });
 
         if(!hasKey){
@@ -14,7 +14,7 @@
 
         return array;
     }, []).map(function(g, index) {
-       return { firstLetter : g.key, words: g.values };
+        return { firstLetter : g.key, words: g.values };
     });
 
     wordGroups.forEach(function(g) {

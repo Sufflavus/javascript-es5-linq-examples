@@ -8,7 +8,7 @@
                 var key = new Date(o.OrderDate).getFullYear();
 
                 var hasKey = array.some(function(item) {
-                    return item.key !== key ? false : ((item.values.push(o)), true);
+                    return item.key === key ? ((item.values.push(o)), true) : false;
                 });
 
                 if(!hasKey){
@@ -23,7 +23,7 @@
                         var key = new Date(o.OrderDate).getMonth() + 1;
 
                         var hasKey = array.some(function(item) {
-                            return item.key !== key ? false : ((item.values.push(o)), true);
+                            return item.key === key ? ((item.values.push(o)), true) : false;
                         });
 
                         if(!hasKey){
@@ -32,7 +32,7 @@
 
                         return array;
                     }, []).map(function(g) {
-                       return { month: g.key, orders: g.values };
+                        return { month: g.key, orders: g.values };
                     })
                 };
             })

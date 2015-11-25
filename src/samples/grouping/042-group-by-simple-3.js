@@ -5,7 +5,7 @@
         var key = p.Category;
 
         var hasKey = array.some(function(item) {
-            return item.key !== key ? false : ((item.values.push(p)), true);
+            return item.key === key ? ((item.values.push(p)), true) : false;
         });
 
         if(!hasKey){
@@ -14,7 +14,7 @@
 
         return array;
     }, []).map(function(g, index) {
-       return { category: g.key, products: g.values };
+        return { category: g.key, products: g.values };
     });
 
     orderGroups.forEach(function(g) {

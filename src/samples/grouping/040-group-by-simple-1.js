@@ -5,7 +5,7 @@
         var key = n % 5;
 
         var hasKey = array.some(function(item) {
-            return item.key !== key ? false : ((item.values.push(n)), true);
+            return item.key === key ? ((item.values.push(n)), true) : false;
         });
 
         if(!hasKey){
@@ -14,7 +14,7 @@
 
         return array;
     }, []).map(function(g, index) {
-       return { remainder: g.key, numbers: g.values };
+        return { remainder: g.key, numbers: g.values };
     });
 
     numberGroups.forEach(function(g) {
