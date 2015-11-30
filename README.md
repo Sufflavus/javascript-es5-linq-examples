@@ -2824,6 +2824,180 @@ function linq53() {
 LINQ - Conversion Operators
 ---------------------------
 
+### linq54: ToArray
+```csharp
+//c#
+public void Linq54() 
+{ 
+    double[] doubles = { 1.7, 2.3, 1.9, 4.1, 2.9 }; 
+  
+    var sortedDoubles = 
+        from d in doubles 
+        orderby d descending 
+        select d; 
+    var doublesArray = sortedDoubles.ToArray(); 
+  
+    Console.WriteLine("Every other double from highest to lowest:"); 
+    for (int d = 0; d < doublesArray.Length; d += 2) 
+    { 
+        Console.WriteLine(doublesArray[d]); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq54() {
+    var doubles = [1.7, 2.3, 1.9, 4.1, 2.9]; 
+
+    var sortedDoubles = doubles.slice().sort(function(d1, d2) {
+        if (d1 > d2) {
+            return -1;
+        } 
+        if (d1 < d2) { 
+            return 1;
+        }
+        
+        return d1 - d2;
+    });
+
+    var doublesArray = Array.prototype.slice.call(sortedDoubles);
+
+    console.log("Every other double from highest to lowest:");
+    
+    for (var d = 0, length = doublesArray.length; d < length; d += 2) 
+    { 
+        console.log(doublesArray[d]); 
+    }
+}
+```
+#### Output
+
+    Every other double from highest to lowest:
+    4.1
+    2.3
+    1.7
+
+### linq55: ToList
+```csharp
+//c#
+public void Linq55() 
+{ 
+    string[] words = { "cherry", "apple", "blueberry" }; 
+  
+    var sortedWords = 
+        from w in words 
+        orderby w 
+        select w; 
+    var wordList = sortedWords.ToList(); 
+  
+    Console.WriteLine("The sorted word list:"); 
+    foreach (var w in wordList) 
+    { 
+        Console.WriteLine(w); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq55() {
+    var words = ["cherry", "apple", "blueberry"]; 
+
+    var sortedWords = words.slice().sort();
+    var wordList = Array.prototype.slice.call(sortedWords);
+
+    console.log("The sorted word list:");
+    
+    wordList.forEach(function(w) {
+        console.log(w); 
+    });
+}
+```
+#### Output
+
+    The sorted word list:
+    apple
+    blueberry
+    cherry
+
+### linq56: ToDictionary
+```csharp
+//c#
+public void Linq56() 
+{ 
+    var scoreRecords = new[] { new {Name = "Alice", Score = 50}, 
+                                new {Name = "Bob"  , Score = 40}, 
+                                new {Name = "Cathy", Score = 45} 
+                            }; 
+  
+    var scoreRecordsDict = scoreRecords.ToDictionary(sr => sr.Name); 
+  
+    Console.WriteLine("Bob's score: {0}", scoreRecordsDict["Bob"]); 
+}
+```
+```js
+//JavaScript
+function linq56() {
+    var scoreRecords = [
+        { name: "Alice", score: 50 }, 
+        { name: "Bob"  , score: 40 }, 
+        { name: "Cathy", score: 45 } 
+    ]; 
+
+    var scoreRecordsDict = scoreRecords.reduce(function(resultObj, sr) {
+        var key = sr.name;
+        resultObj[key] = sr;
+        return resultObj;
+    }, {});
+
+    console.log("Bob's score: { name: " + scoreRecordsDict["Bob"].name + 
+        ", score: " + scoreRecordsDict["Bob"].score + " }"); 
+}
+```
+#### Output
+
+    Bob's score: { name: Bob, score: 40 }
+
+### linq57: OfType
+```csharp
+//c#
+public void Linq57() 
+{ 
+    object[] numbers = { null, 1.0, "two", 3, "four", 5, "six", 7.0 }; 
+  
+    var doubles = numbers.OfType<double>(); 
+  
+    Console.WriteLine("Numbers stored as doubles:"); 
+    foreach (var d in doubles) 
+    { 
+        Console.WriteLine(d); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq57() {
+    var numbers = [null, 1.0, "two", 3, "four", 5, "six", 7.0];
+
+    var doubles = numbers.filter(function(n) {
+        return n === Number(n) && n % 1 !== 0;
+    });
+
+    console.log("Numbers stored as doubles:"); 
+
+    doubles.forEach(function (d) {
+        console.log(d); 
+    });
+}
+```
+#### Output
+
+    Numbers stored as doubles:
+
+> In JavaScript types of number **1** and number **1.0** are the same and equal integer, so **1 == 1.0** and **1 === 1.0**
+
+LINQ - Element Operators
+------------------------
+
 
 Coming soon..
 

@@ -8,5 +8,5 @@
     
     wordList.forEach(function(w) {
         console.log(w); 
-    });    
+    });
 })();
