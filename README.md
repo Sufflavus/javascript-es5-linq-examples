@@ -3251,6 +3251,201 @@ function linq66() {
 LINQ - Quantifiers
 ------------------
 
+### linq67: Any - Simple
+```csharp
+//c#
+public void Linq67() 
+{ 
+    string[] words = { "believe", "relief", "receipt", "field" }; 
+  
+    bool iAfterE = words.Any(w => w.Contains("ei")); 
+ 
+    Console.WriteLine("There is a word that contains in the list that contains 'ei': {0}", iAfterE); 
+}
+```
+```js
+//JavaScript
+function linq67() {
+    var words = ["believe", "relief", "receipt", "field"];
+    
+    var iAfterE = words.some(function(w) {
+        return w.indexOf("ei") > -1;
+    }); 
+
+    console.log("There is a word that contains in the list that contains 'ei': " + iAfterE);
+}
+```
+#### Output
+
+    There is a word that contains in the list that contains 'ei': true
+
+### linq69: Any - Grouped
+```csharp
+//c#
+public void Linq69() 
+{ 
+    List<Product> products = GetProductList(); 
+    var productGroups = 
+        from p in products 
+        group p by p.Category into g 
+        where g.Any(p => p.UnitsInStock == 0) 
+        select new { Category = g.Key, Products = g }; 
+ 
+    ObjectDumper.Write(productGroups, 1);  
+}
+```
+```js
+//JavaScript
+function linq69() {
+    var products = getProductList();
+    
+    var productGroups = products.reduce(function(array, p) {
+        var key = p.Category;
+
+        var hasKey = array.some(function(item) {
+            return item.key === key ? ((item.values.push(p)), true) : false;
+        });
+
+        if(!hasKey){
+            array.push({key: key, values: [p]});
+        }
+
+        return array;
+    }, []).filter(function(g) {
+        return g.values.some(function(p) {
+            return p.UnitsInStock === 0;
+        });
+    }).map(function(g, index) {
+        return { category: g.key, products: g.values };
+    });
+
+    productGroups.forEach(function(g) {
+        console.log("Category=" + g.category + " Products=...");
+        g.products.forEach(function(p) {
+            console.log("Products: ProductID=" + p.ProductID + " ProductName=" + p.ProductName + 
+                " Category=" + p.Category + " UnitPrice=" + p.UnitPrice + " UnitsInStock=" + p.UnitsInStock);
+        })
+    });
+}
+```
+#### Output
+
+    Category=Condiments Products=...
+    Products: ProductID=3 ProductName=Aniseed Syrup Category=Condiments UnitPrice=10 UnitsInStock=13
+    Products: ProductID=4 ProductName=Chef Anton's Cajun Seasoning Category=Condiments UnitPrice=22 UnitsInStock=53
+    Products: ProductID=5 ProductName=Chef Anton's Gumbo Mix Category=Condiments UnitPrice=21.35 UnitsInStock=0
+    Products: ProductID=6 ProductName=Grandma's Boysenberry Spread Category=Condiments UnitPrice=25 UnitsInStock=120
+    Products: ProductID=8 ProductName=Northwoods Cranberry Sauce Category=Condiments UnitPrice=40 UnitsInStock=6
+    Products: ProductID=15 ProductName=Genen Shouyu Category=Condiments UnitPrice=15.5 UnitsInStock=39
+    Products: ProductID=44 ProductName=Gula Malacca Category=Condiments UnitPrice=19.45 UnitsInStock=27
+    Products: ProductID=61 ProductName=Sirop d'érable Category=Condiments UnitPrice=28.5 UnitsInStock=113
+    Products: ProductID=63 ProductName=Vegie-spread Category=Condiments UnitPrice=43.9 UnitsInStock=24
+    Products: ProductID=65 ProductName=Louisiana Fiery Hot Pepper Sauce Category=Condiments UnitPrice=21.05 UnitsInStock=76
+    Products: ProductID=66 ProductName=Louisiana Hot Spiced Okra Category=Condiments UnitPrice=17 UnitsInStock=4
+    Products: ProductID=77 ProductName=Original Frankfurter grüne Soße Category=Condiments UnitPrice=13 UnitsInStock=32
+    Category=Meat/Poultry Products=...
+    ...
+
+### linq70: All - Simple
+```csharp
+//c#
+public void Linq70() 
+{  
+    int[] numbers = { 1, 11, 3, 19, 41, 65, 19 }; 
+  
+    bool onlyOdd = numbers.All(n => n % 2 == 1); 
+  
+    Console.WriteLine("The list contains only odd numbers: {0}", onlyOdd); 
+}
+```
+```js
+//JavaScript
+function linq70() {
+    var numbers = [1, 11, 3, 19, 41, 65, 19];
+    
+    var onlyOdd = numbers.every(function(n) {
+        return n % 2 === 1;
+    }); 
+
+    console.log("The list contains only odd numbers: " + onlyOdd);
+}
+```
+#### Output
+
+    The list contains only odd numbers: true
+
+### linq72: All - Grouped
+```csharp
+//c#
+public void Linq72() 
+{ 
+    List<Product> products = GetProductList(); 
+  
+    var productGroups = 
+        from p in products 
+        group p by p.Category into g 
+        where g.All(p => p.UnitsInStock > 0) 
+        select new { Category = g.Key, Products = g }; 
+     
+    ObjectDumper.Write(productGroups, 1); 
+}
+```
+```js
+//JavaScript
+function linq72() {
+    var products = getProductList();
+    
+    var productGroups = products.reduce(function(array, p) {
+        var key = p.Category;
+
+        var hasKey = array.some(function(item) {
+            return item.key === key ? ((item.values.push(p)), true) : false;
+        });
+
+        if(!hasKey){
+            array.push({key: key, values: [p]});
+        }
+
+        return array;
+    }, []).filter(function(g) {
+        return g.values.every(function(p) {
+            return p.UnitsInStock > 0;
+        });
+    }).map(function(g, index) {
+        return { category: g.key, products: g.values };
+    });
+
+    productGroups.forEach(function(g) {
+        console.log("Category=" + g.category + " Products=...");
+        g.products.forEach(function(p) {
+            console.log("Products: ProductID=" + p.ProductID + " ProductName=" + p.ProductName + 
+                " Category=" + p.Category + " UnitPrice=" + p.UnitPrice + " UnitsInStock=" + p.UnitsInStock);
+        })
+    });
+}
+```
+#### Output
+
+    Category=Beverages Products=...
+    Products: ProductID=1 ProductName=Chai Category=Beverages UnitPrice=18 UnitsInStock=39
+    Products: ProductID=2 ProductName=Chang Category=Beverages UnitPrice=19 UnitsInStock=17
+    Products: ProductID=24 ProductName=Guaraná Fantástica Category=Beverages UnitPrice=4.5 UnitsInStock=20
+    Products: ProductID=34 ProductName=Sasquatch Ale Category=Beverages UnitPrice=14 UnitsInStock=111
+    Products: ProductID=35 ProductName=Steeleye Stout Category=Beverages UnitPrice=18 UnitsInStock=20
+    Products: ProductID=38 ProductName=Côte de Blaye Category=Beverages UnitPrice=263.5 UnitsInStock=17
+    Products: ProductID=39 ProductName=Chartreuse verte Category=Beverages UnitPrice=18 UnitsInStock=69
+    Products: ProductID=43 ProductName=Ipoh Coffee Category=Beverages UnitPrice=46 UnitsInStock=17
+    Products: ProductID=67 ProductName=Laughing Lumberjack Lager Category=Beverages UnitPrice=14 UnitsInStock=52
+    Products: ProductID=70 ProductName=Outback Lager Category=Beverages UnitPrice=15 UnitsInStock=15
+    Products: ProductID=75 ProductName=Rhönbräu Klosterbier Category=Beverages UnitPrice=7.75 UnitsInStock=125
+    Products: ProductID=76 ProductName=Lakkalikööri Category=Beverages UnitPrice=18 UnitsInStock=57
+    Category=Produce Products=...
+    ...
+
+
+LINQ - Aggregate Operators
+--------------------------
+
 
 Coming soon..
 

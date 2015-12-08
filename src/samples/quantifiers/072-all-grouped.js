@@ -14,8 +14,8 @@
 
         return array;
     }, []).filter(function(g) {
-        return g.values.some(function(p) {
-            return p.UnitsInStock === 0;
+        return g.values.every(function(p) {
+            return p.UnitsInStock > 0;
         });
     }).map(function(g, index) {
         return { category: g.key, products: g.values };
