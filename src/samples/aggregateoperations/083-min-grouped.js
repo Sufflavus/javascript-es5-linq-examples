@@ -13,16 +13,16 @@
         }
 
         return array;
-    }, []).map(function(g, index) {
+    }, []).map(function(g) {
         return { 
             category: g.key, 
-            totalUnitsInStock: g.values.reduce(function(sum, product) {
-                    return sum + product.UnitsInStock;
-                }, 0)
+            cheapestPrice: Math.min.apply(Math, g.values.map(function(p) {
+                return p.UnitPrice;
+            }))
         };
     });
 
     categories.forEach(function(p) {
-        console.log("Category=" + p.category + "  TotalUnitsInStock=" + p.totalUnitsInStock);
+        console.log("Category=" + p.category + "  CheapestPrice=" + p.cheapestPrice);
     });
 })();
