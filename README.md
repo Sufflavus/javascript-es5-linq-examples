@@ -31,6 +31,7 @@ The samples below mirrors the C# LINQ samples layout with the JS immediately-inv
 #### [LINQ - Quantifiers](https://github.com/Sufflavus/javascript-es5-linq-examples/tree/master/src/samples/quantifiers/) / [MSDN C#](http://code.msdn.microsoft.com/LINQ-Quantifiers-f00e7e3e)
 #### [LINQ - Aggregate Operators](https://github.com/Sufflavus/javascript-es5-linq-examples/tree/master/src/samples/aggregateoperations/) / [MSDN C#](http://code.msdn.microsoft.com/LINQ-Aggregate-Operators-c51b3869)
 #### [LINQ - Miscellaneous Operators](https://github.com/Sufflavus/javascript-es5-linq-examples/tree/master/src/samples/miscellaneousoperations/) / [MSDN C#](http://code.msdn.microsoft.com/LINQ-Miscellaneous-6b72bb2a)
+#### [LINQ - Custom Sequence Operators](https://github.com/Sufflavus/javascript-es5-linq-examples/tree/master/src/samples/customsequenceoperators/) / [MSDN C#](https://code.msdn.microsoft.com/LINQ-to-DataSets-Custom-41738490)
 #### [LINQ - Query Execution](https://github.com/Sufflavus/javascript-es5-linq-examples/tree/master/src/samples/queryexecution/) / [MSDN C#](http://code.msdn.microsoft.com/LINQ-Query-Execution-ce0d3b95)
 #### [LINQ - Join Operators](https://github.com/Sufflavus/javascript-es5-linq-examples/tree/master/src/samples/joinoperators/) / [MSDN C#](http://code.msdn.microsoft.com/LINQ-Join-Operators-dabef4e9)
 
@@ -4258,6 +4259,178 @@ function linq93() {
 
 LINQ - Miscellaneous Operators
 ------------------------------
+
+### linq94: Concat - 1
+```csharp
+//c#
+public void Linq94() 
+{ 
+    int[] numbersA = { 0, 2, 4, 5, 6, 8, 9 }; 
+    int[] numbersB = { 1, 3, 5, 7, 8 }; 
+  
+    var allNumbers = numbersA.Concat(numbersB); 
+  
+    Console.WriteLine("All numbers from both arrays:"); 
+    foreach (var n in allNumbers) 
+    { 
+        Console.WriteLine(n); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq94() {
+    var numbersA = [0, 2, 4, 5, 6, 8, 9];
+    var numbersB = [1, 3, 5, 7, 8];
+    
+    var allNumbers = numbersA.concat(numbersB);
+    
+    console.log("All numbers from both arrays:");
+
+    allNumbers.forEach(function(n) { 
+        console.log(n);
+    });
+}
+```
+#### Output
+
+    All numbers from both arrays:
+    0
+    2
+    4
+    5
+    6
+    8
+    9
+    1
+    3
+    5
+    7
+    8
+
+### linq95: Concat - 2
+```csharp
+//c#
+public void Linq95() 
+{ 
+    List<Customer> customers = GetCustomerList(); 
+    List<Product> products = GetProductList(); 
+  
+    var customerNames = 
+        from c in customers 
+        select c.CompanyName; 
+    var productNames = 
+        from p in products 
+        select p.ProductName; 
+  
+    var allNames = customerNames.Concat(productNames); 
+  
+    Console.WriteLine("Customer and product names:"); 
+    foreach (var n in allNames) 
+    { 
+        Console.WriteLine(n); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq95() {
+    var customers = getCustomerList();
+    var products = getProductList();
+    
+    var customerNames = customers.map(function(c) {
+        return c.CompanyName;
+    });
+    
+    var productNames = products.map(function(p) {
+        return p.ProductName;
+    });
+
+    var allNames = customerNames.concat(productNames); 
+        
+    console.log("Customer and product names:");
+
+    allNames.forEach(function(n) { 
+        console.log(n);
+    });
+}
+```
+#### Output
+
+    Customer and product names:
+    Alfreds Futterkiste
+    Ana Trujillo Emparedados y helados
+    Antonio Moreno Taquería
+    Around the Horn
+    Berglunds snabbköp
+    Blauer See Delikatessen
+    ...
+
+### linq96: EqualAll - 1
+```csharp
+//c#
+public void Linq96() 
+{ 
+    var wordsA = new string[] { "cherry", "apple", "blueberry" }; 
+    var wordsB = new string[] { "cherry", "apple", "blueberry" }; 
+  
+    bool match = wordsA.SequenceEqual(wordsB); 
+  
+    Console.WriteLine("The sequences match: {0}", match); 
+}
+```
+```js
+//JavaScript
+function linq96() {
+    var wordsA = ["cherry", "apple", "blueberry"]; 
+    var wordsB = ["cherry", "apple", "blueberry"]; 
+
+    var match = wordsA.length === wordsB.length && 
+        wordsA.every(function(w, index) { 
+            return w === wordsB[index]; 
+        });
+
+    console.log("The sequences match: " + match);
+}
+```
+#### Output
+
+    The sequences match: true
+
+### linq97: EqualAll - 2
+```csharp
+//c#
+public void Linq97() 
+{ 
+    var wordsA = new string[] { "cherry", "apple", "blueberry" }; 
+    var wordsB = new string[] { "apple", "blueberry", "cherry" }; 
+  
+    bool match = wordsA.SequenceEqual(wordsB); 
+  
+    Console.WriteLine("The sequences match: {0}", match); 
+}
+```
+```js
+//JavaScript
+function linq97() {
+    var wordsA = ["cherry", "apple", "blueberry"]; 
+    var wordsB = ["apple", "blueberry", "cherry"]; 
+
+    var match = wordsA.length === wordsB.length && 
+        wordsA.every(function(w, index) { 
+            return w === wordsB[index]; 
+        });
+
+    console.log("The sequences match: " + match);
+}
+```
+#### Output
+
+    The sequences match: false
+
+
+LINQ - Query Execution
+----------------------
 
 
 Coming soon..
