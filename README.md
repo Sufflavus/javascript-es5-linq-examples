@@ -4429,6 +4429,54 @@ function linq97() {
     The sequences match: false
 
 
+LINQ - Custom Sequence Operators
+----------------------
+
+### linq98: Combine
+```csharp
+//c#
+public static class CustomSequenceOperators 
+{ 
+    public static IEnumerable Combine(this IEnumerable first, IEnumerable second,  
+    Func func) { 
+        using (IEnumerator e1 = first.GetEnumerator(), e2 = second.GetEnumerator()) 
+        { 
+            while (e1.MoveNext() && e2.MoveNext()) { 
+                yield return func(e1.Current, e2.Current); 
+            } 
+        } 
+    } 
+} 
+ 
+public void Linq98() {
+    int[] vectorA = { 0, 2, 4, 5, 6 }; 
+    int[] vectorB = { 1, 3, 5, 7, 8 }; 
+     
+    int dotProduct = vectorA.Combine(vectorB, (a, b) => a * b).Sum(); 
+     
+    Console.WriteLine("Dot product: {0}", dotProduct); 
+}
+```
+```js
+//JavaScript
+function linq98() {
+    var vectorA = [0, 2, 4, 5, 6]; 
+    var vectorB = [1, 3, 5, 7, 8]; 
+     
+    var dotProduct = vectorA.map(function(a, index) {
+        return a * vectorB[index];
+    }).reduce(function(sum, number) {
+        return sum + number;
+    }, 0); 
+     
+    console.log("Dot product: " + dotProduct); 
+}
+```
+#### Output
+
+    Dot product: 109
+
+
 LINQ - Query Execution
 ----------------------
 
