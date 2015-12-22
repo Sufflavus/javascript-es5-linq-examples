@@ -4480,6 +4480,195 @@ function linq98() {
 LINQ - Query Execution
 ----------------------
 
+### linq99: Deferred Execution
+```csharp
+//c#
+public void Linq99() 
+{ 
+    // Sequence operators form first-class queries that 
+    // are not executed until you enumerate over them. 
+  
+    int[] numbers = new int[] { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 }; 
+  
+    int i = 0; 
+    var q = 
+        from n in numbers 
+        select ++i; 
+  
+    // Note, the local variable 'i' is not incremented 
+    // until each element is evaluated (as a side-effect): 
+    foreach (var v in q) 
+    { 
+        Console.WriteLine("v = {0}, i = {1}", v, i); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq99() {
+    var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
+  
+    var i = 0; 
+    var q = numbers.map(function() {
+        return function() { 
+            return ++i; 
+        };
+    }); 
+
+    q.forEach(function(v){
+        console.log("v = " + v() + " i = " + i); 
+    });  
+}
+```
+#### Output
+
+    v = 1 i = 1
+    v = 2 i = 2
+    v = 3 i = 3
+    v = 4 i = 4
+    v = 5 i = 5
+    v = 6 i = 6
+    v = 7 i = 7
+    v = 8 i = 8
+    v = 9 i = 9
+    v = 10 i = 10
+
+### linq100: Immediate Execution
+```csharp
+//c#
+public void Linq100() 
+{ 
+    // Methods like ToList() cause the query to be 
+    // executed immediately, caching the results. 
+  
+    int[] numbers = new int[] { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 }; 
+  
+    int i = 0; 
+    var q = ( 
+        from n in numbers 
+        select ++i) 
+        .ToList(); 
+  
+    // The local variable i has already been fully 
+    // incremented before we iterate the results: 
+    foreach (var v in q) 
+    { 
+        Console.WriteLine("v = {0}, i = {1}", v, i); 
+    } 
+} 
+```
+```js
+//JavaScript
+function linq100(){
+    var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
+  
+    var i = 0; 
+    var q = numbers.map(function() {
+        return ++i;
+    }); 
+
+    q.forEach(function(v){
+        console.log("v = " + v + " i = " + i); 
+    });  
+}
+```
+#### Output
+
+    v = 1 i = 10
+    v = 2 i = 10
+    v = 3 i = 10
+    v = 4 i = 10
+    v = 5 i = 10
+    v = 6 i = 10
+    v = 7 i = 10
+    v = 8 i = 10
+    v = 9 i = 10
+    v = 10 i = 10
+
+### linq101: Query Reuse
+```csharp
+//c#
+public void Linq101() 
+{ 
+    // Deferred execution lets us define a query once 
+    // and then reuse it later after data changes. 
+  
+    int[] numbers = new int[] { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 }; 
+    var lowNumbers = 
+        from n in numbers 
+        where n <= 3 
+        select n; 
+  
+    Console.WriteLine("First run numbers <= 3:"); 
+    foreach (int n in lowNumbers) 
+    { 
+        Console.WriteLine(n); 
+    } 
+  
+    for (int i = 0; i < 10; i++) 
+    { 
+        numbers[i] = -numbers[i]; 
+    } 
+  
+    // During this second run, the same query object, 
+    // lowNumbers, will be iterating over the new state 
+    // of numbers[], producing different results: 
+    Console.WriteLine("Second run numbers <= 3:"); 
+    foreach (int n in lowNumbers) 
+    { 
+        Console.WriteLine(n); 
+    } 
+} 
+```
+```js
+//JavaScript
+function linq101() {
+    var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
+
+    var lowNumbers = function(){
+        return numbers.filter(function(n){
+            return n <= 3; 
+        });
+    };
+
+    console.log("First run numbers <= 3:")
+    lowNumbers().forEach(function(n) {
+        console.log(n); 
+    });
+
+    for (var i = 0; i < 10; i++) { 
+        numbers[i] = -numbers[i]; 
+    } 
+    
+    console.log("Second run numbers <= 3:"); 
+    lowNumbers().forEach(function(n) {
+        console.log(n); 
+    });
+}
+```
+#### Output
+
+    First run numbers <= 3:
+    1
+    3
+    2
+    0
+    Second run numbers <= 3:
+    -5
+    -4
+    -1
+    -3
+    -9
+    -8
+    -6
+    -7
+    -2
+    0
+
+
+LINQ - Join Operators
+---------------------
+
 
 Coming soon..
 
