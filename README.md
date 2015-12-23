@@ -4669,8 +4669,314 @@ function linq101() {
 LINQ - Join Operators
 ---------------------
 
+### linq102: Cross Join
+```csharp
+//c#
+public void Linq102() 
+{ 
+    string[] categories = new string[]{  
+        "Beverages",   
+        "Condiments",   
+        "Vegetables",   
+        "Dairy Products",   
+        "Seafood" };  
+  
+    List<Product> products = GetProductList(); 
+  
+    var q = 
+        from c in categories 
+        join p in products on c equals p.Category 
+        select new { Category = c, p.ProductName }; 
+ 
+    foreach (var v in q) 
+    { 
+        Console.WriteLine(v.ProductName + ": " + v.Category);  
+    } 
+}
+```
+```js
+//JavaScript
+function linq102() {
+    var categories = ["Beverages", "Condiments", "Vegetables", "Dairy Products", "Seafood"];
+    var products = getProductList(); 
 
-Coming soon..
+    var q = categories.reduce(function(array, c) {
+        products.filter(function(p) {
+            return c === p.Category;
+        }).forEach(function(p) {
+            array.push({ 
+                category: c, 
+                productName: p.ProductName 
+            });
+        });
+
+        return array;
+    }, []);
+
+    q.forEach(function(v) {
+        console.log(v.productName + ": " + v.category);
+    });
+}
+```
+#### Output
+
+    Chai: Beverages
+    Chang: Beverages
+    Guaraná Fantástica: Beverages
+    Sasquatch Ale: Beverages
+    Steeleye Stout: Beverages
+    Côte de Blaye: Beverages
+    Chartreuse verte: Beverages
+    Ipoh Coffee: Beverages
+    Laughing Lumberjack Lager: Beverages
+    Outback Lager: Beverages
+    ...
+
+### linq103: Group Join
+```csharp
+//c#
+public void Linq103() 
+{ 
+    string[] categories = new string[]{  
+        "Beverages",  
+        "Condiments",  
+        "Vegetables",  
+        "Dairy Products",  
+        "Seafood" }; 
+  
+    List<Product> products = GetProductList(); 
+  
+    var q = 
+        from c in categories 
+        join p in products on c equals p.Category into ps 
+        select new { Category = c, Products = ps }; 
+  
+    foreach (var v in q) 
+    { 
+        Console.WriteLine(v.Category + ":"); 
+        foreach (var p in v.Products) 
+        { 
+            Console.WriteLine("   " + p.ProductName); 
+        } 
+    } 
+}
+```
+```js
+//JavaScript
+function linq103() {
+    var categories = ["Beverages", "Condiments", "Vegetables", "Dairy Products", "Seafood"];
+    var products = getProductList(); 
+
+    var q = categories.reduce(function(array, c) {
+        var ps = products.filter(function(p) {
+            return c === p.Category;
+        });
+
+        array.push({ 
+            category: c, 
+            products: ps
+        });
+
+        return array;
+    }, []);
+
+    q.forEach(function(v) {
+        console.log(v.category + ":"); 
+
+        v.products.forEach(function(p) {
+            console.log("   " + p.ProductName); 
+        });
+    });
+}
+```
+#### Output
+
+    Beverages:
+       Chai
+       Chang
+       Guaraná Fantástica
+       Sasquatch Ale
+       Steeleye Stout
+       Côte de Blaye
+       Chartreuse verte
+       Ipoh Coffee
+       Laughing Lumberjack Lager
+       Outback Lager
+       Rhönbräu Klosterbier
+       Lakkalikööri
+    Condiments:
+       Aniseed Syrup
+       Chef Anton's Cajun Seasoning
+       Chef Anton's Gumbo Mix
+       Grandma's Boysenberry Spread
+       Northwoods Cranberry Sauce
+       Genen Shouyu
+       Gula Malacca
+       Sirop d'érable
+       Vegie-spread
+       Louisiana Fiery Hot Pepper Sauce
+       Louisiana Hot Spiced Okra
+       Original Frankfurter grüne Soße
+    ...
+
+### linq104: Cross Join with Group Join
+```csharp
+//c#
+public void Linq104() 
+{ 
+    string[] categories = new string[]{   
+        "Beverages",  
+        "Condiments",  
+        "Vegetables", 
+        "Dairy Products",   
+        "Seafood" }; 
+  
+    List<Product> products = GetProductList(); 
+  
+    var q = 
+        from c in categories 
+        join p in products on c equals p.Category into ps 
+        from p in ps 
+        select new { Category = c, p.ProductName }; 
+  
+    foreach (var v in q) 
+    { 
+        Console.WriteLine(v.ProductName + ": " + v.Category); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq104() {
+    var categories = ["Beverages", "Condiments", "Vegetables", "Dairy Products", "Seafood"];
+    var products = getProductList(); 
+
+    var q = categories.reduce(function(array, c) {
+        var ps = products.filter(function(p) {
+            return c === p.Category;
+        });
+        
+        ps.forEach(function(p) {
+            array.push({ 
+                category: c, 
+                productName: p.ProductName 
+            });
+        });
+
+        return array;
+    }, []);
+
+    q.forEach(function(v) {
+        console.log(v.productName + ": " + v.category);
+    });
+}
+```
+#### Output
+
+    Chai: Beverages
+    Chang: Beverages
+    Guaraná Fantástica: Beverages
+    Sasquatch Ale: Beverages
+    Steeleye Stout: Beverages
+    Côte de Blaye: Beverages
+    Chartreuse verte: Beverages
+    Ipoh Coffee: Beverages
+    Laughing Lumberjack Lager: Beverages
+    Outback Lager: Beverages
+    Rhönbräu Klosterbier: Beverages
+    Lakkalikööri: Beverages
+    Aniseed Syrup: Condiments
+    Chef Anton's Cajun Seasoning: Condiments
+    Chef Anton's Gumbo Mix: Condiments
+    ...
+
+### linq105: Left Outer Join
+```csharp
+//c#
+public void Linq105()  
+{ 
+    string[] categories = new string[]{   
+        "Beverages",  
+        "Condiments",   
+        "Vegetables",   
+        "Dairy Products",  
+        "Seafood" }; 
+  
+    List<Product> products = GetProductList(); 
+  
+    var q = 
+        from c in categories 
+        join p in products on c equals p.Category into ps 
+        from p in ps.DefaultIfEmpty() 
+        select new { Category = c, ProductName = p == null ? "(No products)" : p.ProductName }; 
+  
+    foreach (var v in q) 
+    { 
+        Console.WriteLine(v.ProductName + ": " + v.Category); 
+    } 
+}
+```
+```js
+//JavaScript
+function linq105(){
+    var categories = ["Beverages", "Condiments", "Vegetables", "Dairy Products", "Seafood"];
+    var products = getProductList(); 
+
+    var q = categories.reduce(function(array, c) {
+        var ps = products.filter(function(p) {
+            return c === p.Category;
+        });
+        
+        if(ps.length) {
+            ps.forEach(function(p) {
+                array.push({ 
+                    category: c, 
+                    productName: p.ProductName 
+                });
+            });
+        } else {
+            array.push({ 
+                category: c, 
+                productName: "(No products)"
+            });
+        }
+        
+        return array;
+    }, []);
+
+    q.forEach(function(v) {
+        console.log(v.productName + ": " + v.category);
+    });
+}
+```
+#### Output
+
+    Chai: Beverages
+    Chang: Beverages
+    Guaraná Fantástica: Beverages
+    Sasquatch Ale: Beverages
+    Steeleye Stout: Beverages
+    Côte de Blaye: Beverages
+    Chartreuse verte: Beverages
+    Ipoh Coffee: Beverages
+    Laughing Lumberjack Lager: Beverages
+    Outback Lager: Beverages
+    Rhönbräu Klosterbier: Beverages
+    Lakkalikööri: Beverages
+    Aniseed Syrup: Condiments
+    Chef Anton's Cajun Seasoning: Condiments
+    Chef Anton's Gumbo Mix: Condiments
+    Grandma's Boysenberry Spread: Condiments
+    Northwoods Cranberry Sauce: Condiments
+    Genen Shouyu: Condiments
+    Gula Malacca: Condiments
+    Sirop d'érable: Condiments
+    Vegie-spread: Condiments
+    Louisiana Fiery Hot Pepper Sauce: Condiments
+    Louisiana Hot Spiced Okra: Condiments
+    Original Frankfurter grüne Soße: Condiments
+    (No products): Vegetables
+    ...
 
 
 ## LICENSE
