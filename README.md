@@ -522,7 +522,8 @@ public void Linq11()
     Console.WriteLine("Product Info:"); 
     foreach (var productInfo in productInfos) 
     { 
-        Console.WriteLine("{0} is in the category {1} and costs {2} per unit.", productInfo.ProductName, productInfo.Category, productInfo.Price); 
+        Console.WriteLine("{0} is in the category {1} and costs {2} per unit.", 
+            productInfo.ProductName, productInfo.Category, productInfo.Price); 
     } 
 }
 ```
@@ -805,7 +806,8 @@ function linq16() {
     }, []);
 
     orders.forEach(function(order) {
-        console.log("CustomerID=" + order.customerId + " OrderID=" + order.orderId + " OrderDate=" + order.orderDate);
+        console.log("CustomerID=" + order.customerId + " OrderID=" + order.orderId + 
+            " OrderDate=" + order.orderDate);
     });
 }
 ```
@@ -1066,7 +1068,8 @@ function linq21() {
     console.log("First 3 orders in WA:"); 
 
     first3WAOrders.forEach(function(order) {
-        console.log("CustomerID=" + order.customerId + " OrderID=" + order.orderId + " OrderDate=" + order.orderDate);
+        console.log("CustomerID=" + order.customerId + " OrderID=" + order.orderId + 
+            " OrderDate=" + order.orderDate);
     });
 }
 ```
@@ -1162,7 +1165,8 @@ function linq23() {
     console.log("All but first 2 orders in WA:"); 
 
     allButFirst2Orders.forEach(function(order) {
-        console.log("CustomerID=" + order.customerId + " OrderID=" + order.orderId + " OrderDate=" + order.orderDate);
+        console.log("CustomerID=" + order.customerId + " OrderID=" + order.orderId + 
+            " OrderDate=" + order.orderDate);
     });
 }
 ```
@@ -2225,7 +2229,8 @@ function linq43() {
                 console.log("MonthGroups: Month=" + m.month + " Orders=...");
 
                 m.orders.forEach(function(o) {
-                    console.log("Orders: OrderID=" + o.OrderId + " OrderDate=" + o.OrderDate + " Total=" + o.Total);
+                    console.log("Orders: OrderID=" + o.OrderId + " OrderDate=" + o.OrderDate + 
+                        " Total=" + o.Total);
                 });
             });
         });
@@ -3341,7 +3346,8 @@ function linq69() {
     Products: ProductID=44 ProductName=Gula Malacca Category=Condiments UnitPrice=19.45 UnitsInStock=27
     Products: ProductID=61 ProductName=Sirop d'érable Category=Condiments UnitPrice=28.5 UnitsInStock=113
     Products: ProductID=63 ProductName=Vegie-spread Category=Condiments UnitPrice=43.9 UnitsInStock=24
-    Products: ProductID=65 ProductName=Louisiana Fiery Hot Pepper Sauce Category=Condiments UnitPrice=21.05 UnitsInStock=76
+    Products: ProductID=65 ProductName=Louisiana Fiery Hot Pepper Sauce Category=Condiments UnitPrice=21.05 
+    UnitsInStock=76
     Products: ProductID=66 ProductName=Louisiana Hot Spiced Okra Category=Condiments UnitPrice=17 UnitsInStock=4
     Products: ProductID=77 ProductName=Original Frankfurter grüne Soße Category=Condiments UnitPrice=13 UnitsInStock=32
     Category=Meat/Poultry Products=...
@@ -3891,7 +3897,8 @@ function linq84() {
     Category=Dairy Products CheapestProducts=...
     CheapestProducts: ProductID=33 ProductName=Geitost Category=Dairy Products UnitPrice=2.5 UnitsInStock=112
     Category=Confections CheapestProducts=...
-    CheapestProducts: ProductID=19 ProductName=Teatime Chocolate Biscuits Category=Confections UnitPrice=9.2 UnitsInStock=25
+    CheapestProducts: ProductID=19 ProductName=Teatime Chocolate Biscuits Category=Confections UnitPrice=9.2 
+    UnitsInStock=25
     Category=Grains/Cereals CheapestProducts=...
     CheapestProducts: ProductID=52 ProductName=Filo Mix Category=Grains/Cereals UnitPrice=7 UnitsInStock=38
 
@@ -4070,15 +4077,19 @@ function linq88() {
     Category=Produce MostExpensiveProducts=...
     MostExpensiveProducts: ProductID=51 ProductName=Manjimup Dried Apples Category=Produce UnitPrice=53 UnitsInStock=20
     Category=Meat/Poultry MostExpensiveProducts=...
-    MostExpensiveProducts: ProductID=29 ProductName=Thüringer Rostbratwurst Category=Meat/Poultry UnitPrice=123.79 UnitsInStock=0
+    MostExpensiveProducts: ProductID=29 ProductName=Thüringer Rostbratwurst Category=Meat/Poultry UnitPrice=123.79 
+    UnitsInStock=0
     Category=Seafood MostExpensiveProducts=...
     MostExpensiveProducts: ProductID=18 ProductName=Carnarvon Tigers Category=Seafood UnitPrice=62.5 UnitsInStock=42
     Category=Dairy Products MostExpensiveProducts=...
-    MostExpensiveProducts: ProductID=59 ProductName=Raclette Courdavault Category=Dairy Products UnitPrice=55 UnitsInStock=79
+    MostExpensiveProducts: ProductID=59 ProductName=Raclette Courdavault Category=Dairy Products UnitPrice=55 
+    UnitsInStock=79
     Category=Confections MostExpensiveProducts=...
-    MostExpensiveProducts: ProductID=20 ProductName=Sir Rodney's Marmalade Category=Confections UnitPrice=81 UnitsInStock=40
+    MostExpensiveProducts: ProductID=20 ProductName=Sir Rodney's Marmalade Category=Confections UnitPrice=81 
+    UnitsInStock=40
     Category=Grains/Cereals MostExpensiveProducts=...
-    MostExpensiveProducts: ProductID=56 ProductName=Gnocchi di nonna Alice Category=Grains/Cereals UnitPrice=38 UnitsInStock=21
+    MostExpensiveProducts: ProductID=56 ProductName=Gnocchi di nonna Alice Category=Grains/Cereals UnitPrice=38 
+    UnitsInStock=21
 
 ### linq89: Average - Simple
 ```csharp
