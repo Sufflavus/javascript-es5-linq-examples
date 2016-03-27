@@ -72,7 +72,7 @@ public void Linq1()
 function linq1() {
     var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
 
-    var lowNums = numbers.filter(function(n){
+    var lowNums = numbers.filter(function(n) {
         return n < 5;
     });
 
@@ -208,13 +208,14 @@ function linq4() {
     var customers = getCustomerList(); 
 
     var waCustomers = customers.filter(function(c) {
-        return c.Region == "WA";
+        return c.Region === "WA";
     });
 
     console.log("Customers from Washington and their orders:"); 
 
     waCustomers.forEach(function(customer) {
         console.log("Customer " + customer.CustomerId + ": " + customer.CompanyName); 
+
         customer.Orders.forEach(function(order) {
             console.log("  Order " + order.OrderId + ": " + order.OrderDate); 
         });
@@ -241,7 +242,7 @@ public void Linq5()
     string[] digits = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" }; 
   
     var shortDigits = digits.Where((digit, index) => digit.Length < index); 
-  
+
     Console.WriteLine("Short digits:"); 
     foreach (var d in shortDigits) 
     { 
@@ -253,11 +254,11 @@ public void Linq5()
 //JavaScript
 function linq5() {
     var digits = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]; 
-    
+
     var shortDigits = digits.filter(function(digit, index) {
         return digit.length < index;
     }); 
-    
+
     console.log("Short digits:"); 
 
     shortDigits.forEach(function(d) {
@@ -349,7 +350,7 @@ function linq7() {
     var products = getProductList(); 
 
     console.log("Product Names:");
-    
+
     var productNames = products.map(function(p) {
         return p.ProductName;
     });
@@ -393,7 +394,7 @@ public void Linq8()
 function linq8() {
     var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
     var strings = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]; 
-    
+
     var textNums = numbers.map(function(n) {
         return strings[n];
     });
@@ -441,9 +442,9 @@ public void Linq9()
 function linq9() {
     var words = ["aPPLE", "BlUeBeRrY", "cHeRry"];
 
-    var upperLowerWords = words.map(function(w) { 
-        return { 
-            upper: w.toUpperCase(), 
+    var upperLowerWords = words.map(function(w) {
+        return {
+            upper: w.toUpperCase(),
             lower: w.toLowerCase()
         }; 
     });
@@ -483,7 +484,7 @@ function linq10() {
     var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
     var strings = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]; 
 
-    var digitOddEvens = numbers.map(function(n){
+    var digitOddEvens = numbers.map(function(n) {
         return { 
             digit: strings[n], 
             even: (n % 2 === 0) 
@@ -531,8 +532,8 @@ public void Linq11()
 //JavaScript
 function linq11() {
     var products = getProductList();
-    
-    var productInfos = products.map(function(p){
+
+    var productInfos = products.map(function(p) {
         return { 
             productName: p.ProductName, 
             category: p.Category,
@@ -541,7 +542,7 @@ function linq11() {
     });
 
     console.log("Product Info:"); 
-    
+
     productInfos.forEach(function(productInfo) {
         console.log(productInfo.productName + " is in the category " + 
             productInfo.category + " and costs " + productInfo.unitPrice + " per unit.");
@@ -630,8 +631,8 @@ public void Linq13()
 function linq13() {
     var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
     var digits = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]; 
-     
-    var lowNums = numbers.filter(function(n){
+
+    var lowNums = numbers.filter(function(n) {
                        return n < 5;
                    }).map(function(n){
                        return digits[n];
@@ -679,7 +680,7 @@ public void Linq14()
 function linq14() {
     var numbersA = [0, 2, 4, 5, 6, 8, 9]; 
     var numbersB = [1, 3, 5, 7, 8]; 
-      
+
     var pairs = numbersA.map(function(a) {
         return numbersB.filter(function(b) { 
                 return a < b; 
@@ -740,7 +741,7 @@ public void Linq15()
 //JavaScript
 function linq15() {
     var customers = getCustomerList();
-          
+
     var orders = customers.map(function(customer) {
         return customer.Orders.filter(function(order) { 
                 return order.Total < 500; 
@@ -773,8 +774,8 @@ function linq15() {
 //c#
 public void Linq16() 
 { 
-    List<Customer> customers = GetCustomerList(); 
-  
+    List<Customer> customers = GetCustomerList();
+
     var orders = 
         from c in customers 
         from o in c.Orders 
@@ -840,13 +841,13 @@ public void Linq17()
 //JavaScript
 function linq17() {
     var customers = getCustomerList(); 
-      
+
     var orders = customers.map(function(customer) {
-        return customer.Orders.filter(function(order) { 
+        return customer.Orders.filter(function(order) {
                 return order.Total >= 2000; 
             }).map(function(order) {
                 return {
-                    customerId: customer.CustomerId, 
+                    customerId: customer.CustomerId,
                     orderId: order.OrderId,
                     total: order.Total
                 };
@@ -875,34 +876,34 @@ function linq17() {
 public void Linq18() 
 { 
     List<Customer> customers = GetCustomerList(); 
-  
+
     DateTime cutoffDate = new DateTime(1997, 1, 1); 
-  
+
     var orders = 
         from c in customers 
         where c.Region == "WA" 
         from o in c.Orders 
         where o.OrderDate >= cutoffDate 
         select new { c.CustomerID, o.OrderID }; 
-  
+
     ObjectDumper.Write(orders); 
 }
 ```
 ```js
 //JavaScript
 function linq18() {
-    var customers = getCustomerList(); 
+    var customers = getCustomerList();
 
-    var cutoffDate = new Date(1997, 0, 1); 
-      
+    var cutoffDate = new Date(1997, 0, 1);
+
     var orders = customers.filter(function (customer) {
         return customer.Region === "WA";
     }).map(function(customer) {
-        return customer.Orders.filter(function(order) { 
-                return (new Date(order.OrderDate)).getTime() >= cutoffDate.getTime(); 
+        return customer.Orders.filter(function(order) {
+                return (new Date(order.OrderDate)).getTime() >= cutoffDate.getTime();
             }).map(function(order) {
                 return {
-                    customerId: customer.CustomerId, 
+                    customerId: customer.CustomerId,
                     orderId: order.OrderId
                 };
             });
@@ -959,7 +960,7 @@ function linq19() {
     var orders = customers.map(function(customer, customerIndex) {
         return customer.Orders.map(function(order) {
                 return "Customer #" + (customerIndex + 1) + 
-                       " has an order with OrderID " + order.OrderId; 
+                       " has an order with OrderID " + order.OrderId;
             });
     }).reduce(function(arr1, arr2) {
         return arr1.concat(arr2);
@@ -1011,7 +1012,7 @@ function linq20() {
 
     var first3Numbers = numbers.slice(0, 3);
 
-    console.log("First 3 numbers:"); 
+    console.log("First 3 numbers:");
 
     first3Numbers.forEach(function(n) {
         console.log(n);
@@ -1049,7 +1050,7 @@ public void Linq21()
 ```js
 //JavaScript
 function linq21() {
-    var customers = getCustomerList(); 
+    var customers = getCustomerList();
 
     var first3WAOrders = customers.filter(function (customer) {
         return customer.Region === "WA";
@@ -1100,11 +1101,11 @@ public void Linq22()
 ```js
 //JavaScript
 function linq22() {
-    var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
+    var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0];
 
     var allButFirst4Numbers = numbers.slice(4);
 
-    console.log("All but first 4 numbers:"); 
+    console.log("All but first 4 numbers:");
 
     allButFirst4Numbers.forEach(function(n) {
         console.log(n);
@@ -1146,7 +1147,7 @@ public void Linq23()
 ```js
 //JavaScript
 function linq23() {
-    var customers = getCustomerList(); 
+    var customers = getCustomerList();
 
     var allButFirst2Orders = customers.filter(function (customer) {
         return customer.Region === "WA";
@@ -1162,10 +1163,10 @@ function linq23() {
         return arr1.concat(arr2);
     }, []).slice(2);
 
-    console.log("All but first 2 orders in WA:"); 
+    console.log("All but first 2 orders in WA:");
 
     allButFirst2Orders.forEach(function(order) {
-        console.log("CustomerID=" + order.customerId + " OrderID=" + order.orderId + 
+        console.log("CustomerID=" + order.customerId + " OrderID=" + order.orderId +
             " OrderDate=" + order.orderDate);
     });
 }
@@ -1210,9 +1211,9 @@ public void Linq24()
 ```js
 //JavaScript
 function linq24() {
-    var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
+    var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0];
 
-    var firstNumbersLessThan6 = numbers.slice(0, (function(array, condition){
+    var firstNumbersLessThan6 = numbers.slice(0, (function(array, condition) {
         var stopIndex = array.length;
         array.some(function(n, index) {
             return condition(n, index) ? false : ((stopIndex = index), true);
@@ -1222,7 +1223,7 @@ function linq24() {
         return n < 6;
     }));
 
-    console.log("First numbers less than 6:"); 
+    console.log("First numbers less than 6:");
 
     firstNumbersLessThan6.forEach(function(n) {
         console.log(n);
@@ -1258,17 +1259,17 @@ public void Linq25()
 function linq25() {
     var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
 
-    var firstSmallNumbers = numbers.slice(0, (function(array, condition){
+    var firstSmallNumbers = numbers.slice(0, (function(array, condition) {
         var stopIndex = array.length;
         array.some(function(n, index) {
             return condition(n, index) ? false : ((stopIndex = index), true);
         });
         return stopIndex;
-    })(numbers, function(n, index){
+    })(numbers, function(n, index) {
         return n >= index;
     }));
 
-    console.log("First numbers not less than their position:"); 
+    console.log("First numbers not less than their position:");
 
     firstSmallNumbers.forEach(function(n) {
         console.log(n);
@@ -1302,13 +1303,13 @@ public void Linq26()
 function linq26() {
     var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
 
-    var allButFirst3Numbers = numbers.slice((function(array, condition){
+    var allButFirst3Numbers = numbers.slice((function(array, condition) {
         var stopIndex = array.length;
         array.some(function(n, index) {
             return condition(n, index) ? false : ((stopIndex = index), true);
         });
         return stopIndex;
-    })(numbers, function(n){
+    })(numbers, function(n) {
         return n % 3 != 0;
     }));
 
@@ -1351,13 +1352,13 @@ public void Linq27()
 function linq27() {
     var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
 
-    var laterNumbers = numbers.slice((function(array, condition){
+    var laterNumbers = numbers.slice((function(array, condition) {
         var stopIndex = array.length;
         array.some(function(n, index) {
             return condition(n, index) ? false : ((stopIndex = index), true);
         });
         return stopIndex;
-    })(numbers, function(n, index){
+    })(numbers, function(n, index) {
         return n >= index;
     }));
 
@@ -1406,11 +1407,11 @@ public void Linq28()
 ```js
 //JavaScript
 function linq28() {
-    var words = ["cherry", "apple", "blueberry"]; 
+    var words = ["cherry", "apple", "blueberry"];
 
     var sortedWords = words.slice().sort();
 
-    console.log("The sorted list of words:"); 
+    console.log("The sorted list of words:");
 
     sortedWords.forEach(function(w) {
         console.log(w);
@@ -1526,7 +1527,7 @@ public void Linq31()
 ```js
 //JavaScript
 function linq31() {
-    var words = ["aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry"]; 
+    var words = ["aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry"];
 
     var sortedWords = words.slice().sort(caseInsensitiveComparer);
 
@@ -1576,14 +1577,14 @@ public void Linq32()
 ```js
 //JavaScript
 function linq32() {
-    var doubles = [1.7, 2.3, 1.9, 4.1, 2.9]; 
+    var doubles = [1.7, 2.3, 1.9, 4.1, 2.9];
 
     var sortedDoubles = doubles.slice().sort(function(a, b) {
         return b - a;
     });
 
-    console.log("The doubles from highest to lowest:"); 
-    
+    console.log("The doubles from highest to lowest:");
+
     sortedDoubles.forEach(function(d) {
         console.log(d);
     });
@@ -1616,7 +1617,7 @@ public void Linq33()
 ```js
 //JavaScript
 function linq33() {
-    var products = getProductList(); 
+    var products = getProductList();
 
     var sortedProducts = products.slice().sort(function(p1, p2) {
         return p2.UnitsInStock - p1.UnitsInStock;
@@ -1652,7 +1653,7 @@ public void Linq34()
 ```js
 //JavaScript
 function linq34() {
-    var words = ["aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry"]; 
+    var words = ["aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry"];
 
     var sortedWords = words.slice().sort(caseInsensitiveComparer);
 
@@ -1702,27 +1703,30 @@ public void Linq35()
 ```js
 //JavaScript
 function linq35() {
-    var digits = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]; 
+    var digits = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
 
     var sortedDigits = digits.slice().sort(function(d1, d2) {
         if (d1.length > d2.length) {
             return 1;
-        } 
-        if (d1.length < d2.length) { 
+        }
+
+        if (d1.length < d2.length) {
             return -1;
         }
 
-        if (d1 > d2) { 
+        if (d1 > d2) {
             return 1;
         } 
+
         if (d1 < d2) {
             return -1
-        } 
+        }
+
         return 0;
     });
 
-    console.log("Sorted digits:"); 
-    
+    console.log("Sorted digits:");
+
     sortedDigits.forEach(function(d) {
         console.log(d);
     });
@@ -1764,8 +1768,9 @@ function linq36(){
     var sortedWords = words.slice().sort(function(a1, a2) {
         if (a1.length > a2.length) {
             return 1;
-        } 
-        if (a1.length < a2.length) { 
+        }
+
+        if (a1.length < a2.length) {
             return -1;
         }
 
@@ -1780,9 +1785,11 @@ function linq36(){
         if (x.toUpperCase() < y.toUpperCase()) {
             return -1;
         }
+
         if (x.toUpperCase() > y.toUpperCase()) {
             return 1;
         }
+
         return 0;
     }
 }
@@ -1819,11 +1826,12 @@ function linq37() {
     var sortedProducts = products.slice().sort(function(p1, p2) {
         if (p1.Category > p2.Category) {
             return 1;
-        } 
-        if (p1.Category < p2.Category) { 
+        }
+
+        if (p1.Category < p2.Category) {
             return -1;
         }
-        
+
         return p2.UnitPrice - p1.UnitPrice;
     });
 
@@ -1870,6 +1878,7 @@ function linq38() {
         if (a1.length > a2.length) {
             return 1;
         } 
+
         if (a1.length < a2.length) { 
             return -1;
         }
@@ -1885,9 +1894,11 @@ function linq38() {
         if (x.toUpperCase() < y.toUpperCase()) {
             return 1;
         }
+
         if (x.toUpperCase() > y.toUpperCase()) {
             return -1;
         }
+
         return 0;
     }
 }
@@ -1994,6 +2005,7 @@ function linq40() {
 
     numberGroups.forEach(function(g) {
         console.log("Numbers with a remainder of " + g.remainder + " when divided by 5:");
+
         g.numbers.forEach(function(n) {
             console.log(n);
         })
@@ -2063,6 +2075,7 @@ function linq41() {
 
     wordGroups.forEach(function(g) {
         console.log("Words that start with the letter '" + g.firstLetter + "':");
+
         g.words.forEach(function(w) {
             console.log(w);
         })
@@ -2119,6 +2132,7 @@ function linq42() {
 
     orderGroups.forEach(function(g) {
         console.log("Category=" + g.category + " Products=...");
+
         g.products.forEach(function(p) {
             console.log("Products: ProductID=" + p.ProductID + " ProductName=" + p.ProductName + 
                 " Category=" + p.Category + " UnitPrice=" + p.UnitPrice + " UnitsInStock=" + p.UnitsInStock);
@@ -2417,7 +2431,7 @@ public void Linq46()
 ```js
 //JavaScript
 function linq46() {
-    var factorsOf300 = [2, 2, 3, 5, 5]; 
+    var factorsOf300 = [2, 2, 3, 5, 5];
 
     var uniqueFactors = factorsOf300.filter(function(f, index, array) {
         return array.indexOf(f) === index;
@@ -2633,7 +2647,7 @@ function linq50() {
     var numbersB = [1, 3, 5, 7, 8]; 
 
     var commonNumbers = numbersA.filter(function(n) {
-        return numbersB.indexOf(n) != -1;
+        return numbersB.indexOf(n) !== -1;
     }).filter(function(n, index, array) {
         return array.indexOf(n) === index;
     });
@@ -2689,7 +2703,7 @@ function linq51() {
     });
     
     var commonFirstChars = productFirstChars.filter(function(ch) {
-        return customerFirstChars.indexOf(ch) != -1;
+        return customerFirstChars.indexOf(ch) !== -1;
     })
     .filter(function(ch, index, array) {
         return array.indexOf(ch) === index;
