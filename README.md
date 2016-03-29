@@ -2872,11 +2872,12 @@ function linq54() {
     var sortedDoubles = doubles.slice().sort(function(d1, d2) {
         if (d1 > d2) {
             return -1;
-        } 
+        }
+
         if (d1 < d2) { 
             return 1;
         }
-        
+
         return d1 - d2;
     });
 
@@ -2926,7 +2927,7 @@ function linq55() {
     var wordList = Array.prototype.slice.call(sortedWords);
 
     console.log("The sorted word list:");
-    
+
     wordList.forEach(function(w) {
         console.log(w); 
     });
@@ -2958,10 +2959,10 @@ public void Linq56()
 //JavaScript
 function linq56() {
     var scoreRecords = [
-        { name: "Alice", score: 50 }, 
-        { name: "Bob"  , score: 40 }, 
-        { name: "Cathy", score: 45 } 
-    ]; 
+        { name: "Alice", score: 50 },
+        { name: "Bob"  , score: 40 },
+        { name: "Cathy", score: 45 }
+    ];
 
     var scoreRecordsDict = scoreRecords.reduce(function(resultObj, sr) {
         var key = sr.name;
@@ -3002,10 +3003,10 @@ function linq57() {
         return n === Number(n) && n % 1 !== 0;
     });
 
-    console.log("Numbers stored as doubles:"); 
+    console.log("Numbers stored as doubles:");
 
     doubles.forEach(function (d) {
-        console.log(d); 
+        console.log(d);
     });
 }
 ```
@@ -3042,7 +3043,7 @@ function linq58() {
 
     var product12 = products.filter(function(p) {
         return p.ProductID === 12;
-    })[0]; 
+    })[0];
 
     console.log("ProductID=" + product12.ProductID + " ProductName=" + product12.ProductName + 
         " Category=" + product12.Category + " UnitPrice=" + product12.UnitPrice + 
@@ -3069,11 +3070,11 @@ public void Linq59()
 //JavaScript
 function linq59() {
     var strings = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
- 
+
     var startsWithO = strings.filter(function(s) {
         return s[0] === "o";
-    })[0]; 
-    
+    })[0];
+
     console.log("A string starting with 'o': " + startsWithO);
 }
 ```
@@ -3127,13 +3128,13 @@ public void Linq62()
 ```js
 //JavaScript
 function linq62() {
-    var products = getProductList(); 
+    var products = getProductList();
     var defaultProductValue = {};
- 
+
     var product789 = products.filter(function(p) {
         return p.ProductID === 789;
-    })[0] || defaultProductValue; 
-    
+    })[0] || defaultProductValue;
+
     console.log("Product 789 exists: " + !product789);
 }
 ```
@@ -3162,8 +3163,8 @@ public void Linq64()
 ```js
 //JavaScript
 function linq64() {
-    var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
-    
+    var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0];
+
     var fourthLowNum = numbers.filter(function(n) {
         return n > 5;
     })[1];
@@ -3200,14 +3201,14 @@ public void Linq65()
 function linq65() {
     var numbers = Array.apply(null, Array(50))
         .map(function(element, index) {
-            return index + 100;  
+            return index + 100;
         }).map(function(n) {
             return { 
-                number: n, 
-                oddEven: n % 2 === 1 ? "odd" : "even" 
+                number: n,
+                oddEven: n % 2 === 1 ? "odd" : "even"
             };
         }); 
-    
+
     numbers.forEach(function(n) {
         console.log("The number " + n.number + " is " + n.oddEven + ".");
     });
@@ -3287,10 +3288,10 @@ public void Linq67()
 //JavaScript
 function linq67() {
     var words = ["believe", "relief", "receipt", "field"];
-    
+
     var iAfterE = words.some(function(w) {
         return w.indexOf("ei") > -1;
-    }); 
+    });
 
     console.log("There is a word that contains in the list that contains 'ei': " + iAfterE);
 }
@@ -3318,7 +3319,7 @@ public void Linq69()
 //JavaScript
 function linq69() {
     var products = getProductList();
-    
+
     var productGroups = products.reduce(function(array, p) {
         var key = p.Category;
 
@@ -3326,8 +3327,8 @@ function linq69() {
             return item.key === key ? ((item.values.push(p)), true) : false;
         });
 
-        if(!hasKey){
-            array.push({key: key, values: [p]});
+        if(!hasKey) {
+            array.push({ key: key, values: [p] });
         }
 
         return array;
@@ -3341,6 +3342,7 @@ function linq69() {
 
     productGroups.forEach(function(g) {
         console.log("Category=" + g.category + " Products=...");
+
         g.products.forEach(function(p) {
             console.log("Products: ProductID=" + p.ProductID + " ProductName=" + p.ProductName + 
                 " Category=" + p.Category + " UnitPrice=" + p.UnitPrice + " UnitsInStock=" + p.UnitsInStock);
@@ -3383,10 +3385,10 @@ public void Linq70()
 //JavaScript
 function linq70() {
     var numbers = [1, 11, 3, 19, 41, 65, 19];
-    
+
     var onlyOdd = numbers.every(function(n) {
         return n % 2 === 1;
-    }); 
+    });
 
     console.log("The list contains only odd numbers: " + onlyOdd);
 }
@@ -3415,7 +3417,7 @@ public void Linq72()
 //JavaScript
 function linq72() {
     var products = getProductList();
-    
+
     var productGroups = products.reduce(function(array, p) {
         var key = p.Category;
 
@@ -3423,8 +3425,8 @@ function linq72() {
             return item.key === key ? ((item.values.push(p)), true) : false;
         });
 
-        if(!hasKey){
-            array.push({key: key, values: [p]});
+        if(!hasKey) {
+            array.push({ key: key, values: [p] });
         }
 
         return array;
@@ -3438,6 +3440,7 @@ function linq72() {
 
     productGroups.forEach(function(g) {
         console.log("Category=" + g.category + " Products=...");
+
         g.products.forEach(function(p) {
             console.log("Products: ProductID=" + p.ProductID + " ProductName=" + p.ProductName + 
                 " Category=" + p.Category + " UnitPrice=" + p.UnitPrice + " UnitsInStock=" + p.UnitsInStock);
@@ -3511,7 +3514,7 @@ public void Linq74()
 //JavaScript
 function linq74() {
     var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0];
-    
+
     var oddNumbers = numbers.filter(function(n) {
         return n % 2 === 1;
     }).length; 
@@ -3544,8 +3547,8 @@ function linq76() {
 
     var orderCounts = customers.map(function(c) {
         return { 
-            customerId: c.CustomerId, 
-            orderCount: c.Orders.length 
+            customerId: c.CustomerId,
+            orderCount: c.Orders.length
         };
     }); 
 
@@ -3584,7 +3587,7 @@ public void Linq77()
 //JavaScript
 function linq77() {
     var products = getProductList();
-    
+
     var categoryCounts = products.reduce(function(array, p) {
         var key = p.Category;
 
@@ -3633,10 +3636,10 @@ public void Linq78()
 //JavaScript
 function linq78() {
     var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0];
-    
+
     var numSum = numbers.reduce(function(sum, number) {
         return sum + number;
-    }, 0); 
+    }, 0);
 
     console.log("The sum of the numbers is " + numSum + ".");
 }
@@ -3661,10 +3664,10 @@ public void Linq79()
 //JavaScript
 function linq79() {
     var words = ["cherry", "apple", "blueberry"];
-    
+
     var totalChars = words.reduce(function(sum, word) {
         return sum + word.length;
-    }, 0); 
+    }, 0);
 
     console.log("There are a total of " + totalChars + " characters in these words.");
 }
@@ -3701,16 +3704,16 @@ function linq80() {
         });
 
         if(!hasKey){
-            array.push({key: key, values: [p]});
+            array.push({ key: key, values: [p] });
         }
 
         return array;
     }, []).map(function(g, index) {
-        return { 
-            category: g.key, 
+        return {
+            category: g.key,
             totalUnitsInStock: g.values.reduce(function(sum, product) {
-                    return sum + product.UnitsInStock;
-                }, 0)
+                return sum + product.UnitsInStock;
+            }, 0)
         };
     });
 
@@ -3746,7 +3749,7 @@ public void Linq81()
 //JavaScript
 function linq81() {
     var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0];
-    
+
     var minNum = Math.min.apply(Math, numbers); 
 
     console.log("The minimum number is " + minNum + ".");
@@ -3772,10 +3775,10 @@ public void Linq82()
 //JavaScript
 function linq82() {
     var words = ["cherry", "apple", "blueberry"];
-    
+
     var shortestWord = Math.min.apply(Math, words.map(function(w) {
         return w.length;
-    })); 
+    }));
 
     console.log("The shortest word is " + shortestWord + " characters long.");
 }
@@ -3803,7 +3806,7 @@ public void Linq83()
 //JavaScript
 function linq83() {
     var products = getProductList();
-    
+
     var categories = products.reduce(function(array, p) {
         var key = p.Category;
 
@@ -3812,13 +3815,13 @@ function linq83() {
         });
 
         if(!hasKey){
-            array.push({key: key, values: [p]});
+            array.push({ key: key, values: [p] });
         }
 
         return array;
     }, []).map(function(g) {
         return { 
-            category: g.key, 
+            category: g.key,
             cheapestPrice: Math.min.apply(Math, g.values.map(function(p) {
                 return p.UnitPrice;
             }))
@@ -3861,7 +3864,7 @@ public void Linq84()
 //JavaScript
 function linq84() {
     var products = getProductList();
-    
+
     var categories = products.reduce(function(array, p) {
         var key = p.Category;
 
@@ -3870,7 +3873,7 @@ function linq84() {
         });
 
         if(!hasKey){
-            array.push({key: key, values: [p]});
+            array.push({ key: key, values: [p] });
         }
 
         return array;
@@ -3878,8 +3881,8 @@ function linq84() {
         var minPrice = Math.min.apply(Math, g.values.map(function(p) {
             return p.UnitPrice;
         }));
-        
-        return { 
+
+        return {
             category: g.key,
             cheapestProducts: g.values.filter(function(p) {
                 return p.UnitPrice === minPrice;
@@ -3889,10 +3892,11 @@ function linq84() {
 
     categories.forEach(function(g) {
         console.log("Category=" + g.category + " CheapestProducts=...");
+
         g.cheapestProducts.forEach(function(p) {
             console.log("CheapestProducts: ProductID=" + p.ProductID + " ProductName=" + p.ProductName + 
                 " Category=" + p.Category + " UnitPrice=" + p.UnitPrice + " UnitsInStock=" + p.UnitsInStock);
-        })
+        });
     });
 }
 ```
@@ -3932,8 +3936,8 @@ public void Linq85()
 //JavaScript
 function linq85() {
     var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0];
-    
-    var maxNum = Math.max.apply(null, numbers); 
+
+    var maxNum = Math.max.apply(null, numbers);
 
     console.log("The maximum number is " + maxNum + ".");
 }
@@ -3958,10 +3962,10 @@ public void Linq86()
 //JavaScript
 function linq86() {
     var words = ["cherry", "apple", "blueberry"];
-    
+
     var longestLength = Math.max.apply(null, words.map(function(w) {
         return w.length;
-    })); 
+    }));
 
     console.log("The longest word is " + longestLength + " characters long.");
 }
@@ -3998,7 +4002,7 @@ function linq87() {
         });
 
         if(!hasKey){
-            array.push({key: key, values: [p]});
+            array.push({ key: key, values: [p] });
         }
 
         return array;
@@ -4047,7 +4051,7 @@ public void Linq88()
 //JavaScript
 function linq88() {
     var products = getProductList();
-    
+
     var categories = products.reduce(function(array, p) {
         var key = p.Category;
 
@@ -4056,7 +4060,7 @@ function linq88() {
         });
 
         if(!hasKey){
-            array.push({key: key, values: [p]});
+            array.push({ key: key, values: [p] });
         }
 
         return array;
@@ -4075,10 +4079,11 @@ function linq88() {
 
     categories.forEach(function(g) {
         console.log("Category=" + g.category + " MostExpensiveProducts=...");
+
         g.mostExpensiveProducts.forEach(function(p) {
             console.log("MostExpensiveProducts: ProductID=" + p.ProductID + " ProductName=" + p.ProductName + 
                 " Category=" + p.Category + " UnitPrice=" + p.UnitPrice + " UnitsInStock=" + p.UnitsInStock);
-        })
+        });
     });
 }
 ```
@@ -4121,10 +4126,10 @@ public void Linq89()
 //JavaScript
 function linq89() {
     var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0];
-    
+
     var averageNum = numbers.reduce(function(sum, number) {
         return sum + number;
-    }, 0) / numbers.length; 
+    }, 0) / numbers.length;
 
     console.log("The average number is " + averageNum + ".");
 }
@@ -4152,7 +4157,7 @@ function linq90() {
 
     var averageLength = words.reduce(function(sum, word) {
         return sum + word.length;
-    }, 0) / words.length; 
+    }, 0) / words.length;
 
     console.log("The average word length is " + averageLength + " characters.");
 }
@@ -4180,7 +4185,7 @@ public void Linq91()
 //JavaScript
 function linq91() {
     var products = getProductList();
-    
+
     var categories = products.reduce(function(array, p) {
         var key = p.Category;
 
@@ -4189,7 +4194,7 @@ function linq91() {
         });
 
         if(!hasKey){
-            array.push({key: key, values: [p]});
+            array.push({ key: key, values: [p] });
         }
 
         return array;
@@ -4197,8 +4202,8 @@ function linq91() {
         return { 
             category: g.key, 
             averagePrice: g.values.reduce(function(sum, product) {
-                    return sum + product.UnitPrice;
-                }, 0) / g.values.length
+                return sum + product.UnitPrice;
+            }, 0) / g.values.length
         };
     });
 
@@ -4234,10 +4239,10 @@ public void Linq92()
 //JavaScript
 function linq92() {
     var doubles = [1.7, 2.3, 1.9, 4.1, 2.9];
-    
+
     var product = doubles.reduce(function(runningProduct, nextFactor) {
         return runningProduct * nextFactor;
-    }, 1); 
+    }, 1);
 
     console.log("Total product of all numbers: " + product);
 }
@@ -4269,7 +4274,7 @@ function linq93() {
     var startBalance = 100.0;
 
     var attemptedWithdrawals = [20, 10, 40, 50, 10, 70, 30];
-    
+
     var endBalance = attemptedWithdrawals.reduce(function(balance, nextWithdrawal) {
         return nextWithdrawal <= balance ? (balance - nextWithdrawal) : balance;
     }, startBalance); 
@@ -4307,9 +4312,9 @@ public void Linq94()
 function linq94() {
     var numbersA = [0, 2, 4, 5, 6, 8, 9];
     var numbersB = [1, 3, 5, 7, 8];
-    
+
     var allNumbers = numbersA.concat(numbersB);
-    
+
     console.log("All numbers from both arrays:");
 
     allNumbers.forEach(function(n) { 
@@ -4362,7 +4367,7 @@ public void Linq95()
 function linq95() {
     var customers = getCustomerList();
     var products = getProductList();
-    
+
     var customerNames = customers.map(function(c) {
         return c.CompanyName;
     });
@@ -4371,11 +4376,11 @@ function linq95() {
         return p.ProductName;
     });
 
-    var allNames = customerNames.concat(productNames); 
-        
+    var allNames = customerNames.concat(productNames);
+
     console.log("Customer and product names:");
 
-    allNames.forEach(function(n) { 
+    allNames.forEach(function(n) {
         console.log(n);
     });
 }
@@ -4411,8 +4416,8 @@ function linq96() {
     var wordsB = ["cherry", "apple", "blueberry"]; 
 
     var match = wordsA.length === wordsB.length && 
-        wordsA.every(function(w, index) { 
-            return w === wordsB[index]; 
+        wordsA.every(function(w, index) {
+            return w === wordsB[index];
         });
 
     console.log("The sequences match: " + match);
@@ -4476,9 +4481,9 @@ public static class CustomSequenceOperators
 public void Linq98() {
     int[] vectorA = { 0, 2, 4, 5, 6 }; 
     int[] vectorB = { 1, 3, 5, 7, 8 }; 
-     
+
     int dotProduct = vectorA.Combine(vectorB, (a, b) => a * b).Sum(); 
-     
+
     Console.WriteLine("Dot product: {0}", dotProduct); 
 }
 ```
@@ -4487,13 +4492,13 @@ public void Linq98() {
 function linq98() {
     var vectorA = [0, 2, 4, 5, 6]; 
     var vectorB = [1, 3, 5, 7, 8]; 
-     
+
     var dotProduct = vectorA.map(function(a, index) {
         return a * vectorB[index];
     }).reduce(function(sum, number) {
         return sum + number;
-    }, 0); 
-     
+    }, 0);
+
     console.log("Dot product: " + dotProduct); 
 }
 ```
@@ -4532,17 +4537,17 @@ public void Linq99()
 //JavaScript
 function linq99() {
     var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
-  
+
     var i = 0; 
     var q = numbers.map(function() {
         return function() { 
-            return ++i; 
+            return ++i;
         };
     }); 
 
-    q.forEach(function(v){
+    q.forEach(function(v) {
         console.log("v = " + v() + " i = " + i); 
-    });  
+    });
 }
 ```
 #### Output
@@ -4586,15 +4591,15 @@ public void Linq100()
 //JavaScript
 function linq100(){
     var numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0]; 
-  
-    var i = 0; 
+
+    var i = 0;
     var q = numbers.map(function() {
         return ++i;
     }); 
 
-    q.forEach(function(v){
+    q.forEach(function(v) {
         console.log("v = " + v + " i = " + i); 
-    });  
+    });
 }
 ```
 #### Output
@@ -4664,7 +4669,7 @@ function linq101() {
     for (var i = 0; i < 10; i++) { 
         numbers[i] = -numbers[i]; 
     } 
-    
+
     console.log("Second run numbers <= 3:"); 
     lowNumbers().forEach(function(n) {
         console.log(n); 
@@ -4880,7 +4885,7 @@ function linq104() {
         var ps = products.filter(function(p) {
             return c === p.Category;
         });
-        
+
         ps.forEach(function(p) {
             array.push({ 
                 category: c, 
@@ -4951,7 +4956,7 @@ function linq105(){
         var ps = products.filter(function(p) {
             return c === p.Category;
         });
-        
+
         if(ps.length) {
             ps.forEach(function(p) {
                 array.push({ 
@@ -4965,7 +4970,7 @@ function linq105(){
                 productName: "(No products)"
             });
         }
-        
+
         return array;
     }, []);
 
